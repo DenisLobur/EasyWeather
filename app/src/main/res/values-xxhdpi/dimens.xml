@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MAIN ACTIVITY-->
+    <dimen name="progress_indicator_size">40dp</dimen>
+    <dimen name="toolbar_height">50dp</dimen>
+    <dimen name="todays_widget_height">200dp</dimen>
+    <dimen name="weather_list_height">200dp</dimen>
+
+    <!-- WEATHER_ITEM -->
+    <dimen name="item_height">50dp</dimen>
+    <dimen name="item_pic_size">40dp</dimen>
+    <dimen name="item_margin">20dp</dimen>
+</resources>

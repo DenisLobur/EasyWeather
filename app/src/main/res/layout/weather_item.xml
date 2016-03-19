@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/weather_item_color">
+    <ImageView
+            android:id="@+id/item_pic"
+            android:layout_width="@dimen/item_pic_size"
+            android:layout_height="@dimen/item_pic_size"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/item_margin"/>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/item_margin"
+            android:layout_toRightOf="@+id/item_pic"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/item_upper_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/weather_item_text_color"
+                android:typeface="serif"
+                android:textStyle="bold"
+                android:text="Today"/>
+
+        <TextView
+                android:id="@+id/item_lower_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/weather_item_text_color"
+                android:typeface="serif"
+                android:textStyle="normal"
+                android:text="Clear"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/item_margin"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/item_upper_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/weather_item_text_color"
+                android:typeface="serif"
+                android:textStyle="bold"
+                android:text="18"/>
+
+        <TextView
+                android:id="@+id/item_lower_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/weather_item_text_color"
+                android:typeface="serif"
+                android:textStyle="normal"
+                android:text="11"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
