@@ -1,15 +1,23 @@
+
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
     }
 }
 apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
+    mavenCentral()
+}
+
+ext {
+    retrofitVersion = '2.0.2'
 }
 
 android {
@@ -29,6 +37,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -37,4 +50,11 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:cardview-v7:+'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    compile 'io.reactivex:rxandroid:1.1.0'
+
 }
+
+apply plugin: 'me.tatarka.retrolambda'

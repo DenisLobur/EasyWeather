@@ -49,13 +49,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         adapter = new WeatherItemsAdapter(this);
         //weatherList.setAdapter(adapter);
 
-        runBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.runRequest(city.getText().toString());
-            }
-        });
-
+//        runBtn.setOnClickListener(v -> presenter.runRequest(city.getText().toString()));
+        runBtn.setOnClickListener(v -> presenter.runRequestRx(city.getText().toString()));
     }
 
     private void setData(){
@@ -82,6 +77,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         }
 
         weatherList.setAdapter(adapter);
+    }
+
+    @Override
+    public void showWeatherRx(String s) {
+        String ss = s;
     }
 
     @Override
