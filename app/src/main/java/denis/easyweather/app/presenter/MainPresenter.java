@@ -3,16 +3,6 @@ package denis.easyweather.app.presenter;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-import denis.easyweather.app.common.ApiConfig;
-import denis.easyweather.app.common.JSONParser;
-import denis.easyweather.app.net.ApiFactory;
-import denis.easyweather.app.view.MainView;
-import retrofit2.adapter.rxjava.Result;
-import rx.Observable;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 import org.json.JSONException;
 
@@ -24,6 +14,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.Executors;
+
+import denis.easyweather.app.common.ApiConfig;
+import denis.easyweather.app.common.JSONParser;
+import denis.easyweather.app.net.ApiFactory;
+import denis.easyweather.app.view.MainView;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by denis on 12/23/15.
@@ -61,13 +60,10 @@ public class MainPresenter implements Presenter<MainView> {
         ApiFactory.API.getWeather(city, ApiConfig.API_KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(scheduler)
-                .subscribe(new Action1<Result<Object>>() {
-            @Override
-            public void call(Result<Object> stringResult) {
-                String s = stringResult.toString();
-                view.showWeatherRx(s);
-            }
-        }, new Action1<Throwable>() {
+                .subscribe(stringResult -> {
+                    String s = stringResult.toString();
+                    view.showWeatherRx(s);
+                }, new Action1<Throwable>() {
             @Override
             public void call(Throwable throwable) {
                 Throwable th = throwable;
