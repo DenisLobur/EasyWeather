@@ -62,6 +62,7 @@ public class MainPresenter implements Presenter<MainView> {
                 .subscribeOn(scheduler)
                 .subscribe(stringResult -> {
                     String s = stringResult.toString();
+                    Log.d("result", stringResult.response().body().toString());
                     view.showWeatherRx(s);
                 }, new Action1<Throwable>() {
             @Override
