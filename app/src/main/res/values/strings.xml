@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">EasyWeather</string>
     <string name="hello_world">Hello world!</string>
+    <string name="pref_units_key"></string>
+    <string name="pref_units_metric"></string>
+    <string name="pref_units_imperial"></string>
 </resources>
