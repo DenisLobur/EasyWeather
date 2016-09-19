@@ -1,22 +1,21 @@
 package denis.easyweather.app.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import denis.easyweather.app.R;
 import denis.easyweather.app.common.WeatherItemsAdapter;
 import denis.easyweather.app.model.ItemModel;
 import denis.easyweather.app.presenter.MainPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -49,13 +48,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         adapter = new WeatherItemsAdapter(this);
         //weatherList.setAdapter(adapter);
 
-        runBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.runRequest(city.getText().toString());
-            }
-        });
-
+//        runBtn.setOnClickListener(v -> presenter.runRequest(city.getText().toString()));
+        runBtn.setOnClickListener(v -> presenter.runRequestRx(city.getText().toString()));
     }
 
     private void setData(){
@@ -85,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public Context getContext() {
-        return this;
+    public void showWeatherRx(String s) {
+        String ss = s;
     }
 }

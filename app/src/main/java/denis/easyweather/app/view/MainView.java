@@ -5,4 +5,5 @@ package denis.easyweather.app.view;
  */
 public interface MainView extends MvpView {
     void showTodayWeather(String[] weatherData);
+    void showWeatherRx(String s);
 }

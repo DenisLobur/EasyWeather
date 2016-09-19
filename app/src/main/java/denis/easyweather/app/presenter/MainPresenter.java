@@ -3,9 +3,7 @@ package denis.easyweather.app.presenter;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-import denis.easyweather.app.common.ApiConfig;
-import denis.easyweather.app.common.JSONParser;
-import denis.easyweather.app.view.MainView;
+
 import org.json.JSONException;
 
 import java.io.BufferedReader;
@@ -15,6 +13,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.Executors;
+
+import denis.easyweather.app.common.ApiConfig;
+import denis.easyweather.app.common.JSONParser;
+import denis.easyweather.app.net.ApiFactory;
+import denis.easyweather.app.view.MainView;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by denis on 12/23/15.
@@ -43,7 +51,25 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     public void runRequest(String city) {
-        new RequestTask().execute(city);
+        //new RequestTask().execute(city);
+    }
+
+    private static Scheduler scheduler = Schedulers.from(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
+
+    public void runRequestRx(String city) {
+        ApiFactory.API.getWeather(city, ApiConfig.API_KEY)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(scheduler)
+                .subscribe(stringResult -> {
+                    String s = stringResult.toString();
+                    Log.d("result", stringResult.response().body().toString());
+                    view.showWeatherRx(s);
+                }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                Throwable th = throwable;
+            }
+        });
     }
 
     //http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7
