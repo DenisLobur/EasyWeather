@@ -3,7 +3,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.3'
+        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 apply plugin: 'com.android.application'
@@ -14,7 +16,7 @@ repositories {
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         applicationId "denis.easyweather.app"
@@ -36,8 +38,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:24.0.1'
+    compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:cardview-v7:+'
     compile 'com.jakewharton:butterknife:7.0.1'
 }
