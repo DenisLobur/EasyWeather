@@ -1,4 +1,4 @@
-package denis.easyweather.app.view;
+package denis.easyweather.app.detail;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -11,7 +11,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import denis.easyweather.app.R;
 import denis.easyweather.app.model.ItemModel;
-import denis.easyweather.app.view.DetailActivity;
+import denis.easyweather.app.detail.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;

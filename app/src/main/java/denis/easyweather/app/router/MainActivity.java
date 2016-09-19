@@ -1,4 +1,4 @@
-package denis.easyweather.app.view;
+package denis.easyweather.app.router;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +14,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import denis.easyweather.app.R;
 import denis.easyweather.app.common.WeatherItemsAdapter;
+import denis.easyweather.app.main.MainView;
 import denis.easyweather.app.model.ItemModel;
-import denis.easyweather.app.presenter.MainPresenter;
+import denis.easyweather.app.main.MainPresenter;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.weather_list)
     RecyclerView weatherList;
@@ -63,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     }
 
-    @Override
     public void showTodayWeather(String [] weatherData) {
         String token = "//";
         String singleData;

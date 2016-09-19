@@ -1,4 +1,4 @@
-package denis.easyweather.app.presenter;
+package denis.easyweather.app.main;
 
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -18,10 +18,9 @@ import java.util.concurrent.Executors;
 import denis.easyweather.app.common.ApiConfig;
 import denis.easyweather.app.common.JSONParser;
 import denis.easyweather.app.net.ApiFactory;
-import denis.easyweather.app.view.MainView;
+import denis.easyweather.app.presenter.Presenter;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -61,15 +60,12 @@ public class MainPresenter implements Presenter<MainView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(scheduler)
                 .subscribe(stringResult -> {
-                    String s = stringResult.toString();
-                    Log.d("result", stringResult.response().body().toString());
-                    view.showWeatherRx(s);
-                }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                Throwable th = throwable;
-            }
-        });
+                    //String s = stringResult.toString();
+                    //Log.d("result", stringResult.response().body().toString());
+                    //view.showWeatherRx(s);
+                }, throwable -> {
+                    Throwable th = throwable;
+                });
     }
 
     //http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7
