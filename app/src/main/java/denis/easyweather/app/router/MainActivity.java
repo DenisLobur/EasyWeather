@@ -14,7 +14,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import denis.easyweather.app.R;
 import denis.easyweather.app.common.WeatherItemsAdapter;
-import denis.easyweather.app.main.MainView;
 import denis.easyweather.app.model.ItemModel;
 import denis.easyweather.app.main.MainPresenter;
 
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         presenter = new MainPresenter();
         presenter.attachView(this);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_main);
         ButterKnife.bind(this);
 
         layoutManager = new LinearLayoutManager(this);

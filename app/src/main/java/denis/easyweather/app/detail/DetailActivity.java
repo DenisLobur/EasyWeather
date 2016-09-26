@@ -33,7 +33,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.fragment_detail);
 
         ButterKnife.bind(this);
         Intent intent = getIntent();
