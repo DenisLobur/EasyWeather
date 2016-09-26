@@ -19,6 +19,7 @@ import denis.easyweather.app.common.ApiConfig;
 import denis.easyweather.app.common.JSONParser;
 import denis.easyweather.app.net.ApiFactory;
 import denis.easyweather.app.presenter.Presenter;
+import denis.easyweather.app.router.Router;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -40,7 +41,7 @@ public class MainPresenter implements Presenter<MainView> {
     }
 
     @Override
-    public void attachView(MainView view) {
+    public void attachView(MainView view, Router router) {
         this.view = view;
     }
 

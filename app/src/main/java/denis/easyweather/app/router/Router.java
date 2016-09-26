@@ -6,7 +6,7 @@ package denis.easyweather.app.router;
 
 public interface Router {
 
-    void goToScreen(ViewPort screen);
+    void goToScreen(Screen screen);
 
-    void goToScreen(ViewPort.Type type);
+    void goToScreen(Screen.Type type);
 }

@@ -23,31 +23,31 @@ import rx.functions.Action1;
 public class MainActivityRouter implements Router {
 
     private AppCompatActivity activity;
-    private Map<ViewPort.Type, Action1<ViewPort>> screenHandlers = initScreenHandler();
+    private Map<Screen.Type, Action1<Screen>> screenHandlers = initScreenHandler();
 
     public MainActivityRouter(AppCompatActivity activity) {
         this.activity = activity;
     }
 
     @Override
-    public void goToScreen(ViewPort screen) {
+    public void goToScreen(Screen screen) {
         screenHandlers.get(screen.type).call(screen);
     }
 
     @Override
-    public void goToScreen(ViewPort.Type type) {
-        goToScreen(ViewPort.fromType(type));
+    public void goToScreen(Screen.Type type) {
+        goToScreen(Screen.fromType(type));
     }
 
-    private Map<ViewPort.Type, Action1<ViewPort>> initScreenHandler() {
-        Map<ViewPort.Type, Action1<ViewPort>> handlers = new HashMap<>();
-        handlers.put(ViewPort.Type.MAIN, createFragmentScreenHandler(MainFragment.class));
-        handlers.put(ViewPort.Type.DETAIL, createFragmentScreenHandler(DetailFragment.class));
+    private Map<Screen.Type, Action1<Screen>> initScreenHandler() {
+        Map<Screen.Type, Action1<Screen>> handlers = new HashMap<>();
+        handlers.put(Screen.Type.MAIN, createFragmentScreenHandler(MainFragment.class));
+        handlers.put(Screen.Type.DETAIL, createFragmentScreenHandler(DetailFragment.class));
 
         return handlers;
     }
 
-    private void goToFragment(ViewPort screen, Class<? extends Fragment> fragmentClass) {
+    private void goToFragment(Screen screen, Class<? extends Fragment> fragmentClass) {
         String tag = screen.type.name();
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -60,7 +60,7 @@ public class MainActivityRouter implements Router {
         transaction.replace(R.id.content_frame, fragment, tag).commit();
     }
 
-    private void addToFragmentArguments(ViewPort screen, Fragment fragment){
+    private void addToFragmentArguments(Screen screen, Fragment fragment){
         Bundle params = screen.arguments;
         Bundle bundle = fragment.getArguments();
         if(bundle == null) {
@@ -78,7 +78,7 @@ public class MainActivityRouter implements Router {
         }
     }
 
-    private Action1<ViewPort> createFragmentScreenHandler(Class<? extends Fragment> fragmentClass) {
+    private Action1<Screen> createFragmentScreenHandler(Class<? extends Fragment> fragmentClass) {
         return screen -> goToFragment(screen, fragmentClass);
     }
 }
