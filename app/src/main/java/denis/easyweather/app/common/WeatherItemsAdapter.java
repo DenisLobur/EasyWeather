@@ -7,14 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import denis.easyweather.app.R;
-import denis.easyweather.app.model.ItemModel;
-import denis.easyweather.app.view.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import denis.easyweather.app.R;
+import denis.easyweather.app.model.ItemModel;
 
 /**
  * Created by denis on 12/23/15.
@@ -49,12 +49,6 @@ public class WeatherItemsAdapter extends RecyclerView.Adapter<WeatherItemsAdapte
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.ARG_CITY, "city");
-                intent.putExtra(DetailActivity.ARG_DATE, dataList.get(position).getDate());
-                intent.putExtra(DetailActivity.ARG_MIN, dataList.get(position).getDayTemp());
-                intent.putExtra(DetailActivity.ARG_MAX, dataList.get(position).getNightTemp());
-                intent.putExtra(DetailActivity.ARG_DESC, dataList.get(position).getCondition());
                 context.startActivity(intent);
             }
         });
@@ -71,13 +65,13 @@ public class WeatherItemsAdapter extends RecyclerView.Adapter<WeatherItemsAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_upper_text)
+        @BindView(R.id.item_upper_text)
         TextView date;
-        @Bind(R.id.item_lower_text)
+        @BindView(R.id.item_lower_text)
         TextView condition;
-        @Bind(R.id.item_upper_degree)
+        @BindView(R.id.item_upper_degree)
         TextView dayTemp;
-        @Bind(R.id.item_lower_degree)
+        @BindView(R.id.item_lower_degree)
         TextView nightTemp;
 
         public ViewHolder(View itemView) {

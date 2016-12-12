@@ -15,7 +15,7 @@ import java.util.Set;
 
 import denis.easyweather.app.database.WeatherContract;
 import denis.easyweather.app.database.WeatherDbHelper;
-import denis.easyweather.app.utils.PollingCheck;
+//import denis.easyweather.app.utils.PollingCheck;
 
 /*
     Students: These are functions and some test data to make it easier to test your database and
@@ -137,12 +137,12 @@ public class TestUtilities extends AndroidTestCase {
             // It's useful to look at the Android CTS source for ideas on how to test your Android
             // applications.  The reason that PollingCheck works is that, by default, the JUnit
             // testing framework is not running on the main Android application thread.
-            new PollingCheck(5000) {
-                @Override
-                protected boolean check() {
-                    return mContentChanged;
-                }
-            }.run();
+//            new PollingCheck(5000) {
+//                @Override
+//                protected boolean check() {
+//                    return mContentChanged;
+//                }
+//            }.run();
             mHT.quit();
         }
     }
