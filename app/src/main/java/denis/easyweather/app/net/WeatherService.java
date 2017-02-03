@@ -8,7 +8,7 @@ import rx.Observable;
 /**
  * Created by User on 5/2/16.
  */
-public interface WeatherApi {
+public interface WeatherService {
 
     @GET("/data/2.5/weather")
     Observable<Result<Object>> getWeather(@Query("q") String q,

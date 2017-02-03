@@ -10,7 +10,7 @@ public class TestFetchWeatherTask extends AndroidTestCase{
 
     /*
         Students: uncomment testAddLocation after you have written the AddLocation function.
-        This test will only run on weatherApi level 11 and higher because of a requirement in the
+        This test will only run on weatherService level 11 and higher because of a requirement in the
         content provider.
      */
 //    @TargetApi(11)

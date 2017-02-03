@@ -217,8 +217,8 @@ public class TestProvider extends AndroidTestCase {
 //        // Make sure we get the correct cursor out of the database
 //        TestUtilities.validateCursor("testBasicLocationQueries, location query", locationCursor, testValues);
 //
-//        // Has the NotificationUri been set correctly? --- we can only test this easily against weatherApi
-//        // level 19 or greater because getNotificationUri was added in weatherApi level 19.
+//        // Has the NotificationUri been set correctly? --- we can only test this easily against weatherService
+//        // level 19 or greater because getNotificationUri was added in weatherService level 19.
 //        if ( Build.VERSION.SDK_INT >= 19 ) {
 //            assertEquals("Error: Location Query did not properly set NotificationUri",
 //                    locationCursor.getNotificationUri(), LocationEntry.CONTENT_URI);
