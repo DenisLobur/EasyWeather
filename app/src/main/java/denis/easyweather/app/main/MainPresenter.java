@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 
 import denis.easyweather.app.common.ApiConfig;
 import denis.easyweather.app.common.JSONParser;
-import denis.easyweather.app.net.ApiFactory;
+import denis.easyweather.app.net.RestApi;
 import denis.easyweather.app.presenter.Presenter;
 import denis.easyweather.app.router.Router;
 import rx.Scheduler;
@@ -57,7 +57,7 @@ public class MainPresenter implements Presenter<MainView> {
     private static Scheduler scheduler = Schedulers.from(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
 
     public void runRequestRx(String city) {
-        ApiFactory.API.getWeather(city, ApiConfig.API_KEY)
+        RestApi.weatherService.getWeather(city, ApiConfig.API_KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(scheduler)
                 .subscribe(stringResult -> {
