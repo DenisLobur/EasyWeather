@@ -7,9 +7,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by User on 5/2/16.
  */
-public class ApiFactory {
-    public static final String BASE_URL = "http://api.openweathermap.org/";
-    public static WeatherApi API;
+public class RestApi {
+    private static final String BASE_URL = "http://api.openweathermap.org/";
+    public static WeatherApi weatherApi;
 
     static {
         Retrofit retrofit = new Retrofit.Builder()
@@ -18,6 +18,6 @@ public class ApiFactory {
                 .baseUrl(BASE_URL)
                 .build();
 
-        API = retrofit.create(WeatherApi.class);
+        weatherApi = retrofit.create(WeatherApi.class);
     }
 }
