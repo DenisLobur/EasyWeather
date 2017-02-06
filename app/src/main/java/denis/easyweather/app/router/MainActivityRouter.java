@@ -57,7 +57,7 @@ public class MainActivityRouter implements Router {
                 .orElse(createFragment(fragmentClass));
         addToFragmentArguments(screen, fragment);
         transaction.addToBackStack(null);
-        transaction.replace(R.id.content_frame, fragment, tag).commit();
+        transaction.replace(R.id.main_frame, fragment, tag).commit();
     }
 
     private void addToFragmentArguments(Screen screen, Fragment fragment){

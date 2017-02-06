@@ -12,12 +12,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import denis.easyweather.app.R;
+import denis.easyweather.app.common.BaseFragment;
 
 /**
  * Created by denis on 9/19/16.
  */
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends BaseFragment {
 
     @BindView(R.id.detail_city)
     TextView city;
@@ -50,5 +51,10 @@ public class DetailFragment extends Fragment {
     public void onDestroyView() {
         unbinder.unbind();
         super.onDestroyView();
+    }
+
+    @Override
+    protected void inject() {
+        //getActivityComponent().inject(this);
     }
 }

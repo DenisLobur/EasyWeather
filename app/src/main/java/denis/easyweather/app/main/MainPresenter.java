@@ -15,9 +15,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.Executors;
 
+import javax.inject.Inject;
+
 import denis.easyweather.app.common.ApiConfig;
 import denis.easyweather.app.common.JSONParser;
-import denis.easyweather.app.net.RestApi;
+import denis.easyweather.app.net.WeatherService;
 import denis.easyweather.app.presenter.Presenter;
 import denis.easyweather.app.router.Router;
 import rx.Scheduler;
@@ -35,19 +37,24 @@ public class MainPresenter implements Presenter<MainView> {
     private BufferedReader reader;
     private String forecastJson;
     private JSONParser parser;
+    private Router router;
+    private WeatherService weatherService;
 
-    public MainPresenter() {
-//        parser = new JSONParser()
+    @Inject
+    public MainPresenter(WeatherService weatherService) {
+        this.weatherService = weatherService;
     }
 
     @Override
     public void attachView(MainView view, Router router) {
         this.view = view;
+        this.router = router;
     }
 
     @Override
     public void detachView() {
         view = null;
+        router = null;
     }
 
     public void runRequest(String city) {
@@ -57,12 +64,12 @@ public class MainPresenter implements Presenter<MainView> {
     private static Scheduler scheduler = Schedulers.from(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
 
     public void runRequestRx(String city) {
-        RestApi.weatherService.getWeather(city, ApiConfig.API_KEY)
+        weatherService.getWeather(city, ApiConfig.API_KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(scheduler)
                 .subscribe(stringResult -> {
-                    //String s = stringResult.toString();
-                    //Log.d("result", stringResult.response().body().toString());
+                    String s = stringResult.toString();
+                    Log.d("result", stringResult.response().body().toString());
                     //view.showWeatherRx(s);
                 }, throwable -> {
                     Throwable th = throwable;
