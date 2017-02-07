@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import denis.easyweather.app.common.ApiConfig;
 import denis.easyweather.app.common.JSONParser;
+import denis.easyweather.app.model.CityModel;
 import denis.easyweather.app.net.WeatherService;
 import denis.easyweather.app.presenter.Presenter;
 import denis.easyweather.app.router.Router;
@@ -67,9 +68,10 @@ public class MainPresenter implements Presenter<MainView> {
         weatherService.getWeatherByCityname(city, ApiConfig.API_KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(scheduler)
-                .map(it -> Log.d("result", it.response().body().toString()))
+//                .map(it -> Log.d("result", it.response().body().toString()))
                 .subscribe(stringResult -> {
                     //Log.d("result", stringResult.response().body().toString());
+                    view.showWeatherRx(stringResult.getCoord().getLat() + " " + stringResult.getCoord().getLon());
                 }, throwable -> {
                     Throwable th = throwable;
                 });

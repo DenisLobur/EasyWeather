@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -26,14 +27,14 @@ import denis.easyweather.app.common.BaseFragment;
 
 public class MainFragment extends BaseFragment implements MainView {
 
-    @BindView(R.id.main_recycler)
-    RecyclerView recyclerView;
     @BindView(R.id.main_toolbar)
     Toolbar toolbar;
     @BindView(R.id.city_name)
     EditText cityName;
     @BindView(R.id.search_city)
     Button searchCity;
+    @BindView(R.id.coordinates)
+    TextView coordinates;
     private Unbinder unbinder;
 
     @Inject
@@ -71,7 +72,7 @@ public class MainFragment extends BaseFragment implements MainView {
     public void onSearchClick() {
         Log.d("result", "click");
         //presenter.getWeatherByCity("London");
-        presenter.getWeatherForecast("London,uk");
+        presenter.getWeatherByCity(cityName.getText().toString());
     }
 
     @Override
@@ -87,7 +88,7 @@ public class MainFragment extends BaseFragment implements MainView {
 
     @Override
     public void showWeatherRx(String s) {
-
+        coordinates.setText(s);
     }
 
     @Override

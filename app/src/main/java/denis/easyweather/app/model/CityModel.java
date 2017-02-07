@@ -52,7 +52,7 @@ public class CityModel {
         }
     }
 
-    private class Coordinates {
+    public class Coordinates {
         private Double lat;
         private Double lon;
 
@@ -135,5 +135,49 @@ public class CityModel {
         public Integer getAll() {
             return all;
         }
+    }
+
+    public Coordinates getCoord() {
+        return coord;
+    }
+
+    public SunData getSys() {
+        return sys;
+    }
+
+    public List<WeatherDescription> getWeather() {
+        return weather;
+    }
+
+    public WeatherData getMain() {
+        return main;
+    }
+
+    public WindData getWind() {
+        return wind;
+    }
+
+    public RainData getRain() {
+        return rain;
+    }
+
+    public Clouds getClouds() {
+        return clouds;
+    }
+
+    public Long getDt() {
+        return dt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getCod() {
+        return cod;
     }
 }

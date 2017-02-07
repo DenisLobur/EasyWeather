@@ -13,7 +13,7 @@ import rx.Observable;
 public interface WeatherService {
 
     @GET("/data/2.5/weather")
-    Observable<Result<CityModel>> getWeatherByCityname(@Query("q") String q,
+    Observable<CityModel> getWeatherByCityname(@Query("q") String q,
                                                        @Query("appid") String apiKey);
 
     @GET("/data/2.5/weather")
