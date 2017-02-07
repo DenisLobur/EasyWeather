@@ -79,9 +79,9 @@ public class MainPresenter implements Presenter<MainView> {
         weatherService.getWeatherForecastByCityname(cityCountryName, ApiConfig.API_KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(scheduler)
-                //.map(it -> Log.d("result", it.response().body().toString()))
+                .map(it -> Log.d("result", it.response().body().toString()))
                 .subscribe(stringResult -> {
-                    Log.d("result", stringResult.response().body().toString());
+//                    Log.d("result", stringResult.response().body().toString());
                 }, throwable -> {
                     Throwable th = throwable;
                 });

@@ -1,6 +1,7 @@
 package denis.easyweather.app.net;
 
 import denis.easyweather.app.model.CityModel;
+import denis.easyweather.app.model.ForecastModel;
 import retrofit2.adapter.rxjava.Result;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -21,7 +22,7 @@ public interface WeatherService {
                                                     @Query("appid") String apiKey);
 
     @GET("data/2.5/forecast")
-    Observable<Result<Object>> getWeatherForecastByCityname(@Query("q") String cityCountryName,
-                                                            @Query("appid") String apiKey);
+    Observable<Result<ForecastModel>> getWeatherForecastByCityname(@Query("q") String cityCountryName,
+                                                                   @Query("appid") String apiKey);
 
 }
