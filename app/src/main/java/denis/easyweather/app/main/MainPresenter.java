@@ -65,7 +65,7 @@ public class MainPresenter implements Presenter<MainView> {
     private static Scheduler scheduler = Schedulers.from(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
 
     public void getWeatherByCity(String city) {
-        weatherService.getWeatherByCityname(city, ApiConfig.API_KEY)
+        weatherService.getWeatherByCityname(city, "metric", ApiConfig.API_KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(scheduler)
 //                .map(it -> Log.d("result", it.response().body().toString()))

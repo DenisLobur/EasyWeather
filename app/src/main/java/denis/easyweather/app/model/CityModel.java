@@ -43,11 +43,11 @@ public class CityModel {
             return pressure;
         }
 
-        public Double getTemp_min() {
+        public Double getTempMin() {
             return temp_min;
         }
 
-        public Double getTemp_max() {
+        public Double getTempMax() {
             return temp_max;
         }
     }
@@ -56,11 +56,11 @@ public class CityModel {
         private Double lat;
         private Double lon;
 
-        public double getLat() {
+        public Double getLat() {
             return lat;
         }
 
-        public double getLon() {
+        public Double getLon() {
             return lon;
         }
     }
@@ -149,7 +149,7 @@ public class CityModel {
         return weather;
     }
 
-    public WeatherData getMain() {
+    public WeatherData getWeatherData() {
         return main;
     }
 

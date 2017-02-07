@@ -4,4 +4,22 @@
     <string name="pref_units_key"></string>
     <string name="pref_units_metric"></string>
     <string name="pref_units_imperial"></string>
+
+    <!-- Main -->
+    <string name="coordinates">Coordinates</string>
+    <string name="latitude">Latitude: %1$s</string>
+    <string name="longitude">Longitude: %1$s</string>
+    <string name="weather">Weather</string>
+    <string name="temperature">Temperature: %1$s  \u2103</string>
+    <string name="humidity">Humidity: %1$s %%</string>
+    <string name="pressure">Pressure: %1$s hPa</string>
+    <string name="max_temp">Max. Temperature: %1$s  \u2103</string>
+    <string name="min_temp">Min. Temperature: %1$s  \u2103</string>
+    <string name="wind">Wind</string>
+    <string name="wind_data">%1$s m/s, %2$s</string>
+    <string name="clouds">Clouds: %1$s %%</string>
+    <string name="day_light">Daylight</string>
+    <string name="sunrise">Sunrise: %1$s</string>
+    <string name="sunset">Sunset: %1$s</string>
+
 </resources>

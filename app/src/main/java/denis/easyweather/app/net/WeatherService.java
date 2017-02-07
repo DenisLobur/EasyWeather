@@ -14,7 +14,8 @@ public interface WeatherService {
 
     @GET("/data/2.5/weather")
     Observable<CityModel> getWeatherByCityname(@Query("q") String q,
-                                                       @Query("appid") String apiKey);
+                                               @Query("units") String units,
+                                               @Query("appid") String apiKey);
 
     @GET("/data/2.5/weather")
     Observable<Result<CityModel>> getWeatherByCoord(@Query("lat") String latitude,
