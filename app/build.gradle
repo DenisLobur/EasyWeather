@@ -32,7 +32,7 @@ android {
             enabled false
         }
         compileOptions {
-            incremental true
+            incremental false
         }
     }
     buildTypes {

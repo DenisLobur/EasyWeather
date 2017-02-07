@@ -6,3 +6,4 @@ app/build/
 EasyWeather.iml
 local.properties
 .gradle/
+app/app.iml
