@@ -2,7 +2,6 @@ package denis.easyweather.app.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,7 +15,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import denis.easyweather.app.R;
@@ -72,7 +70,8 @@ public class MainFragment extends BaseFragment implements MainView {
     @OnClick(R.id.search_city)
     public void onSearchClick() {
         Log.d("result", "click");
-        presenter.runRequestRx("London");
+        //presenter.getWeatherByCity("London");
+        presenter.getWeatherForecast("London,uk");
     }
 
     @Override
