@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -20,6 +22,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import denis.easyweather.app.R;
 import denis.easyweather.app.common.BaseFragment;
+import denis.easyweather.app.model.CityModel;
 
 /**
  * Created by denis on 9/19/16.
@@ -35,6 +38,16 @@ public class MainFragment extends BaseFragment implements MainView {
     Button searchCity;
     @BindView(R.id.coordinates)
     TextView coordinates;
+    @BindView(R.id.weather)
+    TextView weather;
+    @BindView(R.id.main)
+    TextView main;
+    @BindView(R.id.wind)
+    TextView wind;
+    @BindView(R.id.clouds)
+    TextView clouds;
+    @BindView(R.id.suntime)
+    TextView suntime;
     private Unbinder unbinder;
 
     @Inject
@@ -87,8 +100,13 @@ public class MainFragment extends BaseFragment implements MainView {
     }
 
     @Override
-    public void showWeatherRx(String s) {
-        coordinates.setText(s);
+    public void showWeatherRx(CityModel cityModel) {
+        coordinates.setText("coordinates: " + cityModel.getCoord().getLat() + " " + cityModel.getCoord().getLon());
+        weather.setText("weather: " + cityModel.getWeather().get(0).getDescription());
+        main.setText("main: " + cityModel.getMain().getTemp()+ "");
+        wind.setText("wind: " + cityModel.getWind().getSpeed() + " " + cityModel.getWind().getSpeed());
+        clouds.setText("clouds: " + cityModel.getClouds().getAll());
+        suntime.setText("suntime: " + cityModel.getSys().getSunrise() + " " + cityModel.getSys().getSunset());
     }
 
     @Override

@@ -24,7 +24,7 @@ public class CityModel {
     private String name;
     private Integer cod;
 
-    private class WeatherData {
+    public class WeatherData {
         private Double temp;
         private Double humidity;
         private Double pressure;
@@ -65,7 +65,7 @@ public class CityModel {
         }
     }
 
-    private class SunData {
+    public class SunData {
         private String country;
         private Long sunrise;
         private Long sunset;
@@ -83,7 +83,7 @@ public class CityModel {
         }
     }
 
-    private class WeatherDescription {
+    public class WeatherDescription {
         private Long id;
         private String main;
         private String description;
@@ -106,7 +106,7 @@ public class CityModel {
         }
     }
 
-    private class WindData {
+    public class WindData {
         private Double speed;
         private Double deg;
 
@@ -119,7 +119,7 @@ public class CityModel {
         }
     }
 
-    private class RainData {
+    public class RainData {
         @SerializedName("3h")
         @Expose
         private Integer _3h;
@@ -129,7 +129,7 @@ public class CityModel {
         }
     }
 
-    private class Clouds {
+    public class Clouds {
         private Integer all;
 
         public Integer getAll() {

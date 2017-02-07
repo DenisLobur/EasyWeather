@@ -71,7 +71,7 @@ public class MainPresenter implements Presenter<MainView> {
 //                .map(it -> Log.d("result", it.response().body().toString()))
                 .subscribe(stringResult -> {
                     //Log.d("result", stringResult.response().body().toString());
-                    view.showWeatherRx(stringResult.getCoord().getLat() + " " + stringResult.getCoord().getLon());
+                    view.showWeatherRx(stringResult);
                 }, throwable -> {
                     Throwable th = throwable;
                 });
