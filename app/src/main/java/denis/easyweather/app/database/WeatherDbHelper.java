@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import denis.easyweather.app.database.WeatherContract.WeatherEntry;
 import denis.easyweather.app.database.WeatherContract.LocationEntry;
 
-/**
- * Created by User on 5/20/16.
- */
 public class WeatherDbHelper extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 1;

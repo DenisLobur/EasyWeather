@@ -12,10 +12,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Denis on 03-Feb-17.
- */
-
 @Module(includes = NetworkModule.class)
 public class RestApiModule {
     private static final String BASE_URL = "http://api.openweathermap.org/";

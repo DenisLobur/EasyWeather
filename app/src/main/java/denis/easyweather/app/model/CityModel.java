@@ -5,10 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by Denis on 07-Feb-17.
- */
-
 public class CityModel {
     private Coordinates coord;
     private SunData sys;

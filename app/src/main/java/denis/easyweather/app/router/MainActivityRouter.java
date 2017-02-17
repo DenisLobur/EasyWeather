@@ -16,10 +16,6 @@ import denis.easyweather.app.detail.DetailFragment;
 import denis.easyweather.app.main.MainFragment;
 import rx.functions.Action1;
 
-/**
- * Created by denis on 9/19/16.
- */
-
 public class MainActivityRouter implements Router {
 
     private AppCompatActivity activity;

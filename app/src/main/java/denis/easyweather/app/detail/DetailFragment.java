@@ -2,7 +2,6 @@ package denis.easyweather.app.detail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import denis.easyweather.app.R;
 import denis.easyweather.app.common.BaseFragment;
-
-/**
- * Created by denis on 9/19/16.
- */
 
 public class DetailFragment extends BaseFragment {
 
@@ -41,7 +36,7 @@ public class DetailFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_detail, container);
+        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         unbinder = ButterKnife.bind(this, rootView);
 
         return rootView;
@@ -55,6 +50,6 @@ public class DetailFragment extends BaseFragment {
 
     @Override
     protected void inject() {
-        //getActivityComponent().inject(this);
+        getActivityComponent().inject(this);
     }
 }

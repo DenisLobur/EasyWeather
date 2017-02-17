@@ -8,10 +8,6 @@ import denis.easyweather.app.inject.modules.RestApiModule;
 import denis.easyweather.app.inject.scopes.ApplicationScope;
 import denis.easyweather.app.net.WeatherService;
 
-/**
- * Created by Denis on 03-Feb-17.
- */
-
 @ApplicationScope
 @Component(modules = {RestApiModule.class, PicassoModule.class})
 public interface AppComponent {

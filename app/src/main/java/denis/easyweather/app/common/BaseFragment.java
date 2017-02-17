@@ -8,10 +8,6 @@ import denis.easyweather.app.inject.components.ActivityComponent;
 import denis.easyweather.app.router.MainActivity;
 import denis.easyweather.app.router.Router;
 
-/**
- * Created by Denis on 06-Feb-17.
- */
-
 public abstract class BaseFragment extends Fragment {
 
     @Override

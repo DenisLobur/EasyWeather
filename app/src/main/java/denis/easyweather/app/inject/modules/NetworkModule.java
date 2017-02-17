@@ -6,10 +6,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import timber.log.Timber;
 
-/**
- * Created by Denis on 03-Feb-17.
- */
-
 @Module(includes = ContextModule.class)
 public class NetworkModule {
 

@@ -7,15 +7,12 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by Denis on 07-Feb-17.
- */
-
 public class WindDirectionView extends View {
 
     private static final String TAG = WindDirectionView.class.getName();
     private Paint paintAuxiliaryLines;
     private Paint paintDirection;
+    private Paint paintCircle;
     private int width;
     private int height;
     private float[] linePath;
@@ -43,6 +40,9 @@ public class WindDirectionView extends View {
         paintDirection = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintDirection.setColor(Color.RED);
         paintDirection.setTextSize(40F);
+        paintCircle = new Paint();
+        paintCircle.setStrokeWidth(2F);
+        paintCircle.setColor(Color.MAGENTA);
         linePath = new float[4];
     }
 
@@ -97,9 +97,17 @@ public class WindDirectionView extends View {
         canvas.drawText("SW", 10, height - 20, paintDirection);
         canvas.drawText("W", 10, height / 2 + 15, paintDirection);
 
-        float x = centerX + centerX * (float) Math.cos(Math.toRadians(200));
-        float y = centerY + centerY * (float) Math.sin(Math.toRadians(200));
+//        float x = centerX + centerX * (float) Math.cos(Math.toRadians(200));
+//        float y = centerY + centerY * (float) Math.sin(Math.toRadians(200));
 
-        canvas.drawLine(x, y, centerX, centerY, paintDirection);
+        //canvas.drawLine(x, y, centerX, centerY, paintDirection);
+        int radius = 200;
+        for (float counter = 0; counter < 2 * Math.PI; counter += 0.01) {
+            float x = radius * (float) Math.cos(counter)+ width/2;
+            float y = radius * (float) Math.sin(counter) + height/2;
+            canvas.drawPoint(x, y, paintCircle);
+        }
+
+        canvas.drawPoint(10, 10, paintCircle);
     }
 }

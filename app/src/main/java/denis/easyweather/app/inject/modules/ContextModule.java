@@ -6,10 +6,6 @@ import dagger.Module;
 import dagger.Provides;
 import denis.easyweather.app.inject.scopes.ApplicationScope;
 
-/**
- * Created by Denis on 03-Feb-17.
- */
-
 @Module
 public class ContextModule {
     private final Context context;

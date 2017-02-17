@@ -7,10 +7,6 @@ import denis.easyweather.app.inject.scopes.ActivityScope;
 import denis.easyweather.app.main.MainFragment;
 import denis.easyweather.app.net.WeatherService;
 
-/**
- * Created by Denis on 03-Feb-17.
- */
-
 @ActivityScope
 @Component(modules = MainActivityModule.class, dependencies = AppComponent.class)
 public interface ActivityComponent {
@@ -19,5 +15,5 @@ public interface ActivityComponent {
 
     void inject(MainFragment mainFragment);
 
-    //void inject(DetailFragment detailFragment);
+    void inject(DetailFragment detailFragment);
 }

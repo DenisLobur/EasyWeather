@@ -10,10 +10,6 @@ import dagger.Provides;
 import denis.easyweather.app.inject.scopes.ApplicationScope;
 import okhttp3.OkHttpClient;
 
-/**
- * Created by Denis on 03-Feb-17.
- */
-
 @Module(includes = {ContextModule.class, NetworkModule.class})
 public class PicassoModule {
     @Provides

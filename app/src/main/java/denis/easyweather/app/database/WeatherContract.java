@@ -6,9 +6,6 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.format.Time;
 
-/**
- * Defines table and column names for the weather database.
- */
 public class WeatherContract {
 
     // The "Content authority" is a name for the entire content provider, similar to the

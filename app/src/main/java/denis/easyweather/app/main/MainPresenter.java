@@ -19,7 +19,6 @@ import javax.inject.Inject;
 
 import denis.easyweather.app.common.ApiConfig;
 import denis.easyweather.app.common.JSONParser;
-import denis.easyweather.app.model.CityModel;
 import denis.easyweather.app.net.WeatherService;
 import denis.easyweather.app.presenter.Presenter;
 import denis.easyweather.app.router.Router;
@@ -27,9 +26,6 @@ import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-/**
- * Created by denis on 12/23/15.
- */
 public class MainPresenter implements Presenter<MainView> {
 
     public static final String TAG = "MainPresenter";

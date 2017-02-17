@@ -16,9 +16,6 @@ import butterknife.ButterKnife;
 import denis.easyweather.app.R;
 import denis.easyweather.app.model.ItemModel;
 
-/**
- * Created by denis on 12/23/15.
- */
 public class WeatherItemsAdapter extends RecyclerView.Adapter<WeatherItemsAdapter.ViewHolder> {
 
     private List<ItemModel> dataList;

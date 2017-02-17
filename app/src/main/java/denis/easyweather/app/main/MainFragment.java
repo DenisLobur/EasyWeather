@@ -2,7 +2,6 @@ package denis.easyweather.app.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import javax.inject.Inject;
 
@@ -23,10 +20,6 @@ import butterknife.Unbinder;
 import denis.easyweather.app.R;
 import denis.easyweather.app.common.BaseFragment;
 import denis.easyweather.app.model.CityModel;
-
-/**
- * Created by denis on 9/19/16.
- */
 
 public class MainFragment extends BaseFragment implements MainView {
 

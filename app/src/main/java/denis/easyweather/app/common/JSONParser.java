@@ -7,9 +7,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by denis on 1/16/16.
- */
 public class JSONParser {
     private String jsonString;
     private final String LIST_PARAM = "list";

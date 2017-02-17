@@ -1,8 +1,5 @@
 package denis.easyweather.app.model;
 
-/**
- * Created by denis on 12/23/15.
- */
 public class ItemModel {
     private String date;
     private String condition;

@@ -8,10 +8,6 @@ import denis.easyweather.app.inject.components.DaggerAppComponent;
 import denis.easyweather.app.inject.modules.ContextModule;
 import timber.log.Timber;
 
-/**
- * Created by Denis on 03-Feb-17.
- */
-
 public class WeatherApplication extends Application {
 
     private AppComponent appComponent;

@@ -2,10 +2,6 @@ package denis.easyweather.app.model;
 
 import java.util.List;
 
-/**
- * Created by Denis on 07-Feb-17.
- */
-
 public class ForecastModel {
     private City city;
     private List<ForecastData> list;

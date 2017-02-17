@@ -2,10 +2,6 @@ package denis.easyweather.app.router;
 
 import android.os.Bundle;
 
-/**
- * Created by denis on 9/19/16.
- */
-
 public class Screen {
 
     public final Type type;
