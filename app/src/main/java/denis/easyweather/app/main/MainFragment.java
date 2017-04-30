@@ -3,6 +3,7 @@ package denis.easyweather.app.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import butterknife.Unbinder;
 import denis.easyweather.app.R;
 import denis.easyweather.app.common.BaseFragment;
@@ -82,6 +84,16 @@ public class MainFragment extends BaseFragment implements MainView {
     public void onStop() {
         presenter.detachView();
         super.onStop();
+    }
+
+    @OnEditorAction(R.id.city_name)
+    public boolean inSearch(KeyEvent event) {
+        if (event.getKeyCode() == event.KEYCODE_ENTER) {
+            presenter.getWeatherByCity(cityName.getText().toString());
+            return true;
+        }
+//TODO: make it work!
+        return false;
     }
 
     @OnClick(R.id.search_city)
