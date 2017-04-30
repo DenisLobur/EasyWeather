@@ -7,8 +7,8 @@
 
     <!-- Main -->
     <string name="coordinates">Coordinates</string>
-    <string name="latitude">Latitude: %1$s</string>
-    <string name="longitude">Longitude: %1$s</string>
+    <string name="latitude">Latitude: %1$s \u00B0</string>
+    <string name="longitude">Longitude: %1$s \u00B0</string>
     <string name="weather">Weather</string>
     <string name="temperature">Temperature: %1$s  \u2103</string>
     <string name="humidity">Humidity: %1$s %%</string>

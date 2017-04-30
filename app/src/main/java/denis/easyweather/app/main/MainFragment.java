@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import denis.easyweather.app.R;
 import denis.easyweather.app.common.BaseFragment;
+import denis.easyweather.app.common.Util;
 import denis.easyweather.app.model.CityModel;
 
 public class MainFragment extends BaseFragment implements MainView {
@@ -89,6 +90,7 @@ public class MainFragment extends BaseFragment implements MainView {
     @OnClick(R.id.search_city)
     public void onSearchClick() {
         Log.d("result", "click");
+        Util.hideKeyboard(getContext(), getView());
         //presenter.getWeatherByCity("London");
         presenter.getWeatherByCity(cityName.getText().toString());
     }
@@ -111,23 +113,23 @@ public class MainFragment extends BaseFragment implements MainView {
         longitude.setText(getActivity().getResources().getString(
                 R.string.longitude, String.valueOf(cityModel.coord.lon)));
         temperature.setText(getActivity().getResources().getString(
-                R.string.temperature, String.valueOf(cityModel.main.temp)));
+                R.string.temperature, String.valueOf(Util.convertTemperature(cityModel.main.temp))));
         humidity.setText(getActivity().getResources().getString(
                 R.string.humidity, String.valueOf(cityModel.main.humidity)));
         pressure.setText(getActivity().getResources().getString(
                 R.string.pressure, String.valueOf(cityModel.main.pressure)));
         maxTemp.setText(getActivity().getResources().getString(
-                R.string.max_temp, String.valueOf(cityModel.main.temp_max)));
+                R.string.max_temp, String.valueOf(Util.convertTemperature(cityModel.main.temp_max))));
         minTemp.setText(getActivity().getResources().getString(
-                R.string.min_temp, String.valueOf(cityModel.main.temp_min)));
+                R.string.min_temp, String.valueOf(Util.convertTemperature(cityModel.main.temp_min))));
         wind.setText(getActivity().getResources().getString(
                 R.string.wind_data, String.valueOf(cityModel.wind.speed), String.valueOf(cityModel.wind.deg)));
         clouds.setText(getActivity().getResources().getString(
                 R.string.clouds, String.valueOf(cityModel.clouds.all)));
         sunrise.setText(getActivity().getResources().getString(
-                R.string.sunrise, String.valueOf(cityModel.sys.sunrise)));
+                R.string.sunrise, Util.formatDate(cityModel.sys.sunrise)));
         sunset.setText(getActivity().getResources().getString(
-                R.string.sunset, String.valueOf(cityModel.sys.sunset)));
+                R.string.sunset, Util.formatDate(cityModel.sys.sunset)));
     }
 
     @Override
