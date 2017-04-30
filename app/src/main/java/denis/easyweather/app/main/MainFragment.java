@@ -2,7 +2,6 @@ package denis.easyweather.app.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +23,6 @@ import denis.easyweather.app.model.CityModel;
 
 public class MainFragment extends BaseFragment implements MainView {
 
-    @BindView(R.id.main_toolbar)
-    Toolbar toolbar;
     @BindView(R.id.city_name)
     EditText cityName;
     @BindView(R.id.search_city)
