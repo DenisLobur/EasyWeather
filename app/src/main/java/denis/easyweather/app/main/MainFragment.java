@@ -107,27 +107,27 @@ public class MainFragment extends BaseFragment implements MainView {
     @Override
     public void showWeatherRx(CityModel cityModel) {
         latitude.setText(getActivity().getResources().getString(
-                R.string.latitude, String.valueOf(cityModel.getCoord().getLat())));
+                R.string.latitude, String.valueOf(cityModel.coord.lat)));
         longitude.setText(getActivity().getResources().getString(
-                R.string.longitude, String.valueOf(cityModel.getCoord().getLon())));
+                R.string.longitude, String.valueOf(cityModel.coord.lon)));
         temperature.setText(getActivity().getResources().getString(
-                R.string.temperature, String.valueOf(cityModel.getWeatherData().getTemp())));
+                R.string.temperature, String.valueOf(cityModel.main.temp)));
         humidity.setText(getActivity().getResources().getString(
-                R.string.humidity, String.valueOf(cityModel.getWeatherData().getHumidity())));
+                R.string.humidity, String.valueOf(cityModel.main.humidity)));
         pressure.setText(getActivity().getResources().getString(
-                R.string.pressure, String.valueOf(cityModel.getWeatherData().getPressure())));
+                R.string.pressure, String.valueOf(cityModel.main.pressure)));
         maxTemp.setText(getActivity().getResources().getString(
-                R.string.max_temp, String.valueOf(cityModel.getWeatherData().getTempMax())));
+                R.string.max_temp, String.valueOf(cityModel.main.temp_max)));
         minTemp.setText(getActivity().getResources().getString(
-                R.string.min_temp, String.valueOf(cityModel.getWeatherData().getTempMin())));
+                R.string.min_temp, String.valueOf(cityModel.main.temp_min)));
         wind.setText(getActivity().getResources().getString(
-                R.string.wind_data, String.valueOf(cityModel.getWind().getSpeed()), String.valueOf(cityModel.getWind().getDeg())));
+                R.string.wind_data, String.valueOf(cityModel.wind.speed), String.valueOf(cityModel.wind.deg)));
         clouds.setText(getActivity().getResources().getString(
-                R.string.clouds, String.valueOf(cityModel.getClouds().getAll())));
+                R.string.clouds, String.valueOf(cityModel.clouds.all)));
         sunrise.setText(getActivity().getResources().getString(
-                R.string.sunrise, String.valueOf(cityModel.getSys().getSunrise())));
+                R.string.sunrise, String.valueOf(cityModel.sys.sunrise)));
         sunset.setText(getActivity().getResources().getString(
-                R.string.sunset, String.valueOf(cityModel.getSys().getSunset())));
+                R.string.sunset, String.valueOf(cityModel.sys.sunset)));
     }
 
     @Override

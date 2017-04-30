@@ -37,10 +37,10 @@ public class WeatherItemsAdapter extends RecyclerView.Adapter<WeatherItemsAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.date.setText(dataList.get(position).getDate());
-        holder.condition.setText(dataList.get(position).getCondition());
-        holder.dayTemp.setText(dataList.get(position).getDayTemp());
-        holder.nightTemp.setText(dataList.get(position).getNightTemp());
+        holder.date.setText(dataList.get(position).date);
+        holder.condition.setText(dataList.get(position).condition);
+        holder.dayTemp.setText(dataList.get(position).dayTemp);
+        holder.nightTemp.setText(dataList.get(position).nightTemp);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
