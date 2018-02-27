@@ -4,14 +4,10 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.ContentObserver
 import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import android.os.Handler
 import android.os.HandlerThread
 import android.test.AndroidTestCase
-
-import denis.easyweather.app.database.WeatherContract
-import denis.easyweather.app.database.WeatherDbHelper
 
 //import denis.easyweather.app.utils.PollingCheck;
 

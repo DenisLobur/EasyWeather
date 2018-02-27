@@ -2,14 +2,10 @@ package denis.easyweather.app.data
 
 import android.content.ContentValues
 import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
 import android.test.AndroidTestCase
 
-import denis.easyweather.app.database.WeatherContract
-import denis.easyweather.app.database.WeatherDbHelper
-
-import denis.easyweather.app.database.WeatherContract.WeatherEntry
-import denis.easyweather.app.database.WeatherContract.LocationEntry
+import denis.easyweather.app.data.WeatherContract.WeatherEntry
+import denis.easyweather.app.data.WeatherContract.LocationEntry
 
 /*
     Note: This is not a complete set of tests of the Sunshine ContentProvider, but it does test

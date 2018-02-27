@@ -1,9 +1,6 @@
 package denis.easyweather.app.data
 
-import android.net.Uri
 import android.test.AndroidTestCase
-
-import denis.easyweather.app.database.WeatherContract
 
 /*
     Uncomment this class when you are ready to test your UriMatcher.  Note that this class utilizes

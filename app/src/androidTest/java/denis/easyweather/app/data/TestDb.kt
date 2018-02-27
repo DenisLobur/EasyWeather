@@ -15,15 +15,9 @@
  */
 package denis.easyweather.app.data
 
-import android.content.ContentValues
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
 import android.test.AndroidTestCase
 
 import java.util.HashSet
-
-import denis.easyweather.app.database.WeatherContract
-import denis.easyweather.app.database.WeatherDbHelper
 
 class TestDb : AndroidTestCase() {
 

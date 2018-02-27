@@ -2,10 +2,10 @@ package denis.easyweather.app.net
 
 import denis.easyweather.app.model.CityModel
 import denis.easyweather.app.model.ForecastModel
-import retrofit2.adapter.rxjava.Result
+import io.reactivex.Observable
+import retrofit2.adapter.rxjava2.Result
 import retrofit2.http.GET
 import retrofit2.http.Query
-import rx.Observable
 
 interface WeatherService {
 

@@ -7,20 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-import java.util.ArrayList
-
-import butterknife.BindView
-import butterknife.ButterKnife
 import denis.easyweather.app.R
 import denis.easyweather.app.model.ItemModel
+import java.util.*
 
 class WeatherItemsAdapter(private val context: Context) : RecyclerView.Adapter<WeatherItemsAdapter.ViewHolder>() {
 
     private val dataList: MutableList<ItemModel>?
 
     init {
-        //        this.dataList = dataList;
         dataList = ArrayList<ItemModel>()
     }
 
@@ -53,17 +48,9 @@ class WeatherItemsAdapter(private val context: Context) : RecyclerView.Adapter<W
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @BindView(R.id.item_upper_text)
         internal var date: TextView? = null
-        @BindView(R.id.item_lower_text)
         internal var condition: TextView? = null
-        @BindView(R.id.item_upper_degree)
         internal var dayTemp: TextView? = null
-        @BindView(R.id.item_lower_degree)
         internal var nightTemp: TextView? = null
-
-        init {
-            ButterKnife.bind(this, itemView)
-        }
     }
 }
