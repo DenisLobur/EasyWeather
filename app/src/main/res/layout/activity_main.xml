@@ -29,6 +29,12 @@
               android:hint="City" />
 
         </android.support.design.widget.TextInputLayout>
+
+        <Button
+          android:id="@+id/searchCity"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="search"/>
     </LinearLayout>
 
 </LinearLayout>

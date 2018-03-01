@@ -1,15 +1,16 @@
 package denis.easyweather.app.data.remote
 
-import denis.easyweather.app.data.remote.locationModel.LocationResponse
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
 
-class RemoteWeatherDataSource @Inject constructor(private val remoteWeatherService: RemoteWeatherService, private val remoteGeocodingService: RemoteGeocodingService) {
+class RemoteWeatherDataSource @Inject constructor(private val remoteWeatherService: RemoteWeatherService) {
 
-    fun requestWeatherForCity(latitude: String, longitude: String): Single<WeatherResponse> =
-            remoteWeatherService.requestWeatherForCity(latitude, longitude)
+    fun requestWeatherForCityByCoordinates(latitude: String, longitude: String): Single<WeatherResponse> =
+            remoteWeatherService.requestWeatherForCityByCoordinates(latitude, longitude)
 
-    fun requestCityAddressByName(cityName: String): Single<LocationResponse> = remoteGeocodingService.requestCityAddressByName(cityName)
+    fun requestWeatherForCityByName(cityName: String): Single<WeatherResponse> =
+            remoteWeatherService.requestWeatherForCityByName(cityName, "99d2ca8d62e1b1b71672f3e69b573710")
+
 }

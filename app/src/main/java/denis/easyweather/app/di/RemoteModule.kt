@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import denis.easyweather.app.data.remote.RemoteConfig
-import denis.easyweather.app.data.remote.RemoteGeocodingService
 import denis.easyweather.app.data.remote.RemoteWeatherService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -47,24 +46,6 @@ class RemoteModule {
 
     @Provides
     @Singleton
-    @Named("GEOCODING_API")
-    fun provideWeatherForecastAPIRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit =
-            Retrofit.Builder()
-                    .baseUrl(RemoteConfig.GEOCODING_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .client(okHttpClient)
-                    .build()
-
-
-    @Provides
-    @Singleton
     fun provideRemoteWeatherService(@Named("WEATHER_FORECAST_API") retrofit: Retrofit): RemoteWeatherService =
             retrofit.create(RemoteWeatherService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideRemoteGeocodingService(@Named("GEOCODING_API") retrofit: Retrofit): RemoteGeocodingService =
-            retrofit.create(RemoteGeocodingService::class.java)
-
 }

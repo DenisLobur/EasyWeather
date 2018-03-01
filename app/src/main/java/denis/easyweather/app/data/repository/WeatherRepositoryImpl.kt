@@ -1,7 +1,6 @@
 package denis.easyweather.app.data.repository
 
 import denis.easyweather.app.data.remote.RemoteWeatherDataSource
-import denis.easyweather.app.data.remote.locationModel.LocationResponse
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
 import denis.easyweather.app.data.room.CityEntity
 import denis.easyweather.app.data.room.RoomDataSource
@@ -22,21 +21,13 @@ class WeatherRepositoryImpl @Inject constructor(
 
     override fun getWeather(cityName: String): Single<WeatherDetailsDTO> {
 
-        return remoteWeatherDataSource.requestCityAddressByName(cityName)
-                .flatMap({ locationResponse: LocationResponse ->
-                    remoteWeatherDataSource.requestWeatherForCity(
-                            locationResponse.results[0].geometry.location.lat.toString(),
-                            locationResponse.results[0].geometry.location.lng.toString()
-                    )
-                            .map { weatherResponse: WeatherResponse ->
+        return remoteWeatherDataSource.requestWeatherForCityByName(cityName)
+                .map { weatherResponse: WeatherResponse ->
                                 TransformersDTO.transformToWeatherDetailsDTO(
-                                        locationResponse.results[0].formatted_address,
+                                        cityName,
                                         weatherResponse
                                 )
                             }
-                })
-                .retry(1)
-
     }
 
 
