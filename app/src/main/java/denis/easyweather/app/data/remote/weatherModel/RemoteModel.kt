@@ -7,8 +7,7 @@ import denis.easyweather.app.data.remote.weatherModel.minutely.Minutely
 
 
 data class WeatherResponse(
-        val latitude: Double, //42.3601
-        val longitude: Double, //-71.0589
+		val coord: Coord,
         val timezone: String, //America/New_York
         val currently: Currently,
         val minutely: Minutely,
@@ -18,6 +17,8 @@ data class WeatherResponse(
         val flags: Flags,
         val offset: Int //-5
 )
+
+data class Coord(val lon: Double, val lat: Double)
 
 
 data class Flags(

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import denis.easyweather.app.R
 import denis.easyweather.app.di.WeatherApplication
-import denis.easyweather.app.domain.dto.WeatherDetailsDTO
+import denis.easyweather.app.dto.WeatherDetailsDTO
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -40,7 +40,9 @@ class MainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ weatherResponse: WeatherDetailsDTO? ->
-                    Log.d(TAG, "")
+                    Log.d(TAG, "lat: " + weatherResponse?.coord?.latitude)
+                    Log.d(TAG, "lon: " + weatherResponse?.coord?.longitude)
+//                    Log.d(TAG, "resp"+weatherResponse)
                 }, { throwable -> Log.d(TAG, throwable.message) })
     }
 

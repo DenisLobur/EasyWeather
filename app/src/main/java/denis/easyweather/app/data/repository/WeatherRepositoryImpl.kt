@@ -4,7 +4,7 @@ import denis.easyweather.app.data.remote.RemoteWeatherDataSource
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
 import denis.easyweather.app.data.room.CityEntity
 import denis.easyweather.app.data.room.RoomDataSource
-import denis.easyweather.app.domain.dto.WeatherDetailsDTO
+import denis.easyweather.app.dto.WeatherDetailsDTO
 import denis.easyweather.app.utils.TransformersDTO
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -23,11 +23,8 @@ class WeatherRepositoryImpl @Inject constructor(
 
         return remoteWeatherDataSource.requestWeatherForCityByName(cityName)
                 .map { weatherResponse: WeatherResponse ->
-                                TransformersDTO.transformToWeatherDetailsDTO(
-                                        cityName,
-                                        weatherResponse
-                                )
-                            }
+                    TransformersDTO.transformToWeatherDetailsDTO(cityName, weatherResponse)
+                }
     }
 
 

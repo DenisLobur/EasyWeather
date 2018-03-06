@@ -1,9 +1,10 @@
 package denis.easyweather.app.utils
 
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
-import denis.easyweather.app.domain.dto.HourlyWeatherDTO
-import denis.easyweather.app.domain.dto.WeatherDetailsDTO
-import denis.easyweather.app.domain.dto.WeeklyWeatherDTO
+import denis.easyweather.app.dto.CoordDTO
+import denis.easyweather.app.dto.HourlyWeatherDTO
+import denis.easyweather.app.dto.WeatherDetailsDTO
+import denis.easyweather.app.dto.WeeklyWeatherDTO
 import java.util.*
 
 
@@ -12,7 +13,7 @@ object TransformersDTO{
         val temperatureFahrenheit: Double? = weatherResponse?.currently?.temperature
         val temperature = WeatherMathUtils.convertFahrenheitToCelsius(temperatureFahrenheit)
         val cloudCoverPercentage: Double? = weatherResponse?.currently?.cloudCover
-        val weatherSummary = weatherResponse?.currently?.summary
+        val coord = CoordDTO(weatherResponse?.coord?.lon, weatherResponse?.coord?.lat)
         val windSpeed = weatherResponse?.currently?.windSpeed
         val humidity = weatherResponse?.currently?.humidity
 
@@ -38,7 +39,7 @@ object TransformersDTO{
 
         return WeatherDetailsDTO(
                 cityName = cityName,
-                weatherSummary = weatherSummary,
+                coord = coord,
                 temperature = temperature,
                 windSpeed = windSpeed,
                 humidity = humidity?.let { it * 100 },

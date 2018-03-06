@@ -1,7 +1,7 @@
 package denis.easyweather.app.data.repository
 
 import denis.easyweather.app.data.room.CityEntity
-import denis.easyweather.app.domain.dto.WeatherDetailsDTO
+import denis.easyweather.app.dto.WeatherDetailsDTO
 import io.reactivex.Flowable
 import io.reactivex.Single
 

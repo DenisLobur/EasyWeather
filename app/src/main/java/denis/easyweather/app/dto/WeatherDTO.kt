@@ -1,4 +1,4 @@
-package denis.easyweather.app.domain.dto
+package denis.easyweather.app.dto
 
 import org.parceler.Parcel
 import org.parceler.ParcelConstructor
@@ -9,7 +9,7 @@ data class HourlyWeatherDTO @ParcelConstructor constructor(val timestamp: Long,
 
 @Parcel(Parcel.Serialization.BEAN)
 data class WeatherDetailsDTO @ParcelConstructor constructor(val cityName: String,
-                                                            val weatherSummary: String?,
+                                                            val coord: CoordDTO?,
                                                             val temperature: Double?,
                                                             val humidity: Double?,
                                                             val windSpeed: Double?,
@@ -23,3 +23,7 @@ data class WeeklyWeatherDTO @ParcelConstructor constructor(val maxTemp: String,
                                                            val minTemp: String,
                                                            val dayOfWeek: String,
                                                            val weatherType: String)
+
+@Parcel(Parcel.Serialization.BEAN)
+data class CoordDTO @ParcelConstructor constructor(val longitude: Double?,
+                                                   val latitude: Double?)
