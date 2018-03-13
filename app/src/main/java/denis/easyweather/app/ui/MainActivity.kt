@@ -46,6 +46,10 @@ class MainActivity : AppCompatActivity() {
                     minmaxTemp.text = getString(R.string.min_max_temp,
                             StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMin).toString(),
                             StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMax).toString())
+                    pressureValue.text = getString(R.string.pressure_value, weatherResponse?.main?.pressure!!.toString())
+                    humidityValue.text = getString(R.string.humidity_value, weatherResponse?.main?.humidity!!.toString())
+                    cloudsValue.text = getString(R.string.clouds_value, weatherResponse?.clouds?.all!!.toString())
+                    windValue.text = getString(R.string.wind_value, weatherResponse?.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse?.wind.deg!!))
                 }, { throwable -> Log.d(TAG, throwable.message) })
     }
 

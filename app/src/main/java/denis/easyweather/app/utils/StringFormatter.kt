@@ -45,5 +45,13 @@ object StringFormatter {
         val celsiusTemp = (temp!! - 32) * 0.5556
         return celsiusTemp.toInt()
     }
+
+    fun convertAngleToDirection(deg: Int): String  = when(deg){
+        in 0..90 -> "SW"
+        in 91..180 -> "NW"
+        in 181..270 -> "NE"
+        else -> "SE"
+
+    }
 }
 

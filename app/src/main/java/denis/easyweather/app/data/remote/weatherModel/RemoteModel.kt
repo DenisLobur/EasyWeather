@@ -9,7 +9,8 @@ import denis.easyweather.app.data.remote.weatherModel.minutely.Minutely
 data class WeatherResponse(
         val coord: Coord,
         val main: Main,
-        val timezone: String, //America/New_York
+        val clouds: Clouds,
+        val wind: Wind,
         val currently: Currently,
         val minutely: Minutely,
         val hourly: Hourly,
@@ -22,6 +23,10 @@ data class WeatherResponse(
 data class Coord(val lon: Double, val lat: Double)
 
 data class Main(val temp: Double, val pressure: Int, val humidity: Int, val temp_min: Double, val temp_max: Double)
+
+data class Clouds(val all: Int)
+
+data class Wind(val speed: Double, val deg: Int)
 
 data class Flags(
         val sources: List<String>,

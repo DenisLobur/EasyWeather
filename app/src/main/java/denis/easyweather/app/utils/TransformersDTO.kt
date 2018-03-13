@@ -1,10 +1,7 @@
 package denis.easyweather.app.utils
 
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
-import denis.easyweather.app.dto.CoordDTO
-import denis.easyweather.app.dto.HourlyWeatherDTO
-import denis.easyweather.app.dto.MainDTO
-import denis.easyweather.app.dto.WeatherDetailsDTO
+import denis.easyweather.app.dto.*
 import java.util.*
 
 
@@ -12,6 +9,8 @@ object TransformersDTO {
     fun transformToWeatherDetailsDTO(cityName: String, weatherResponse: WeatherResponse?): WeatherDetailsDTO {
         val coord = CoordDTO(weatherResponse?.coord?.lon, weatherResponse?.coord?.lat)
         val main = MainDTO(weatherResponse?.main?.temp, weatherResponse?.main?.pressure, weatherResponse?.main?.humidity, weatherResponse?.main?.temp_min, weatherResponse?.main?.temp_max)
+        val clouds = CloudsDTO(weatherResponse?.clouds?.all)
+        val wind = WindDTO(weatherResponse?.wind?.speed, weatherResponse?.wind?.deg)
         val temperatureFahrenheit: Double? = weatherResponse?.currently?.temperature
         val temperature = WeatherMathUtils.convertFahrenheitToCelsius(temperatureFahrenheit)
         val cloudCoverPercentage: Double? = weatherResponse?.currently?.cloudCover
@@ -23,24 +22,14 @@ object TransformersDTO {
             hourlyWeatherList.add(HourlyWeatherDTO(it.time.toLong(), it.temperature))
         }
 
-        var hourlyWeatherStringFormatedHoursList = ArrayList<String>()
-
-        //temperature for only next 24hours
-        if (hourlyWeatherList.size > 24) {
-            hourlyWeatherStringFormatedHoursList = (0..24).mapTo(ArrayList<String>()) {
-                StringFormatter.convertTimestampToHourFormat(timestamp = hourlyWeatherList[it].timestamp, timeZone = weatherResponse?.timezone)
-            }
-        }
-
         return WeatherDetailsDTO(
                 cityName = cityName,
                 coord = coord,
                 main = main,
-                windSpeed = windSpeed,
-                humidity = humidity?.let { it * 100 },
+                clouds = clouds,
+                wind = wind,
                 cloudsPercentage = cloudCoverPercentage?.let { it * 100 },
-                hourlyWeatherList = hourlyWeatherList,
-                hourlyWeatherStringFormatedHoursList = hourlyWeatherStringFormatedHoursList
+                hourlyWeatherList = hourlyWeatherList
         )
     }
 }

@@ -6,4 +6,7 @@
     <!-- Main screen -->
     <color name="main_toolbar_color">#80000000</color>
     <color name="name_border_color">#f4a316</color>
+    <color name="white">@android:color/white</color>
+    <color name="orange">@android:color/holo_orange_light</color>
+    <color name="background_color">#30000000</color>
 </resources>
