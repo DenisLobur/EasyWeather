@@ -7,6 +7,7 @@ import android.util.Log
 import denis.easyweather.app.R
 import denis.easyweather.app.di.WeatherApplication
 import denis.easyweather.app.dto.WeatherDetailsDTO
+import denis.easyweather.app.utils.StringFormatter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -40,9 +41,11 @@ class MainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ weatherResponse: WeatherDetailsDTO? ->
-                    Log.d(TAG, "lat: " + weatherResponse?.coord?.latitude)
-                    Log.d(TAG, "lon: " + weatherResponse?.coord?.longitude)
-//                    Log.d(TAG, "resp"+weatherResponse)
+                    mainTemp.text = getString(R.string.main_temp,
+                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.temp).toString())
+                    minmaxTemp.text = getString(R.string.min_max_temp,
+                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMin).toString(),
+                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMax).toString())
                 }, { throwable -> Log.d(TAG, throwable.message) })
     }
 

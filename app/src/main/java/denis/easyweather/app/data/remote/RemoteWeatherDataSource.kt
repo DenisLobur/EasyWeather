@@ -11,6 +11,6 @@ class RemoteWeatherDataSource @Inject constructor(private val remoteWeatherServi
             remoteWeatherService.requestWeatherForCityByCoordinates(latitude, longitude)
 
     fun requestWeatherForCityByName(cityName: String): Single<WeatherResponse> =
-            remoteWeatherService.requestWeatherForCityByName(cityName, "99d2ca8d62e1b1b71672f3e69b573710")
+            remoteWeatherService.requestWeatherForCityByName(cityName, "99d2ca8d62e1b1b71672f3e69b573710", "imperial")
 
 }

@@ -10,7 +10,8 @@
     <string name="latitude">Latitude: %1$s \u00B0</string>
     <string name="longitude">Longitude: %1$s \u00B0</string>
     <string name="weather">Weather</string>
-    <string name="temperature">Temperature: %1$s  \u2103</string>
+    <string name="main_temp">%1$s  \u02DA</string>
+    <string name="min_max_temp">%1$s \u02DA / %2$s \u02DA</string>
     <string name="humidity">Humidity: %1$s %%</string>
     <string name="pressure">Pressure: %1$s hPa</string>
     <string name="max_temp">Max. Temperature: %1$s  \u2103</string>

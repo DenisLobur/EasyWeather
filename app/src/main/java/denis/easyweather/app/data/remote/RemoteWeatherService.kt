@@ -13,5 +13,5 @@ interface RemoteWeatherService {
     fun requestWeatherForCityByCoordinates(@Path("lat") latitude: String, @Path("lon") longitude: String): Single<WeatherResponse>
 
     @GET("weather")
-    fun requestWeatherForCityByName(@Query("q") cityName: String, @Query("APPID") apiKey: String): Single<WeatherResponse>
+    fun requestWeatherForCityByName(@Query("q") cityName: String, @Query("APPID") apiKey: String, @Query("units") units: String): Single<WeatherResponse>
 }

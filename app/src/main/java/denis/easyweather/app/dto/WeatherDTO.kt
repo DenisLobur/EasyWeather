@@ -10,19 +10,19 @@ data class HourlyWeatherDTO @ParcelConstructor constructor(val timestamp: Long,
 @Parcel(Parcel.Serialization.BEAN)
 data class WeatherDetailsDTO @ParcelConstructor constructor(val cityName: String,
                                                             val coord: CoordDTO?,
-                                                            val temperature: Double?,
+                                                            val main: MainDTO?,
                                                             val humidity: Double?,
                                                             val windSpeed: Double?,
                                                             val cloudsPercentage: Double?,
-                                                            val weeklyDayWeahterList: ArrayList<WeeklyWeatherDTO>?,
                                                             val hourlyWeatherList: ArrayList<HourlyWeatherDTO>?,
                                                             val hourlyWeatherStringFormatedHoursList: ArrayList<String>?)
 
 @Parcel(Parcel.Serialization.BEAN)
-data class WeeklyWeatherDTO @ParcelConstructor constructor(val maxTemp: String,
-                                                           val minTemp: String,
-                                                           val dayOfWeek: String,
-                                                           val weatherType: String)
+data class MainDTO @ParcelConstructor constructor(val temp: Double?,
+                                               val pressure: Int?,
+                                               val humidity: Int?,
+                                               val tempMin: Double?,
+                                               val tempMax: Double?)
 
 @Parcel(Parcel.Serialization.BEAN)
 data class CoordDTO @ParcelConstructor constructor(val longitude: Double?,
