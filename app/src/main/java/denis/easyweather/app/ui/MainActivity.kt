@@ -1,18 +1,22 @@
 package denis.easyweather.app.ui
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import denis.easyweather.app.R
 import denis.easyweather.app.di.WeatherApplication
+import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.dto.WeatherDetailsDTO
+import denis.easyweather.app.utils.Constants.FORECAST_RESPONSE
 import denis.easyweather.app.utils.StringFormatter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import org.parceler.Parcels
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +38,12 @@ class MainActivity : AppCompatActivity() {
             val cityName = city.text.toString()
             setupWeatherDetailObserver(cityName)
         }
+
+        fiveDaysBtn.setOnClickListener {
+            val cityName = city.text.toString()
+            setupForecastObserver(cityName)
+        }
+
     }
 
     private fun setupWeatherDetailObserver(city: String): Disposable? {
@@ -52,6 +62,21 @@ class MainActivity : AppCompatActivity() {
                     windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse?.wind.deg!!))
                     description.text = weatherResponse?.weatherEntryList?.get(0)?.description
                 }, { throwable -> Log.d(TAG, throwable.message) })
+    }
+
+    private fun setupForecastObserver(city: String): Disposable? {
+        return viewModel.getForecast(city)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ forecastResponse: ForecastDTO? ->
+                    navigateToDetailsActivity(forecastResponse)
+                }, { throwable -> Log.d(TAG, throwable.message) })
+    }
+
+    private fun navigateToDetailsActivity(forecastResponse: ForecastDTO?) {
+        val intent = Intent(this, ForecastActivity::class.java)
+        intent.putExtra(FORECAST_RESPONSE, Parcels.wrap(forecastResponse))
+        startActivity(intent)
     }
 
 

@@ -46,12 +46,11 @@ object StringFormatter {
         return celsiusTemp.toInt()
     }
 
-    fun convertAngleToDirection(deg: Int): String  = when(deg){
+    fun convertAngleToDirection(deg: Double): String  = when(deg){
         in 0..90 -> "SW"
         in 91..180 -> "NW"
         in 181..270 -> "NE"
         else -> "SE"
-
     }
 }
 

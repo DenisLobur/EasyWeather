@@ -81,6 +81,17 @@
         </LinearLayout>
     </LinearLayout>
 
+    <TextView
+      android:id="@+id/fiveDaysBtn"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:background="@color/white"
+      android:gravity="center"
+      android:padding="5dp"
+      android:text="@string/five_days_label"
+      />
+
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

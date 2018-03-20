@@ -1,5 +1,6 @@
 package denis.easyweather.app.data.remote
 
+import denis.easyweather.app.data.remote.weatherModel.ForecastResponse
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -14,4 +15,7 @@ interface RemoteWeatherService {
 
     @GET("weather")
     fun requestWeatherForCityByName(@Query("q") cityName: String, @Query("APPID") apiKey: String, @Query("units") units: String): Single<WeatherResponse>
+
+    @GET("forecast")
+    fun requestFiveDaysForecastForCityByName(@Query("q") cityName: String, @Query("APPID") apiKey: String): Single<ForecastResponse>
 }

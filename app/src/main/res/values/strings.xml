@@ -27,5 +27,6 @@
     <string name="day_light">Daylight</string>
     <string name="sunrise">Sunrise: %1$s</string>
     <string name="sunset">Sunset: %1$s</string>
+    <string name="five_days_label"> 5 Days Forecast</string>
 
 </resources>

@@ -13,7 +13,7 @@ data class WeatherDetailsDTO @ParcelConstructor constructor(val cityName: String
 
 @Parcel(Parcel.Serialization.BEAN)
 data class MainDTO @ParcelConstructor constructor(val temp: Double?,
-                                                  val pressure: Int?,
+                                                  val pressure: Double?,
                                                   val humidity: Int?,
                                                   val tempMin: Double?,
                                                   val tempMax: Double?)
@@ -22,7 +22,7 @@ data class MainDTO @ParcelConstructor constructor(val temp: Double?,
 data class CloudsDTO @ParcelConstructor constructor(val all: Int?)
 
 @Parcel(Parcel.Serialization.BEAN)
-data class WindDTO @ParcelConstructor constructor(val speed: Double?, val deg: Int?)
+data class WindDTO @ParcelConstructor constructor(val speed: Double?, val deg: Double?)
 
 @Parcel(Parcel.Serialization.BEAN)
 data class CoordDTO @ParcelConstructor constructor(val longitude: Double?,
@@ -30,3 +30,13 @@ data class CoordDTO @ParcelConstructor constructor(val longitude: Double?,
 
 @Parcel(Parcel.Serialization.BEAN)
 data class WeatherEntryDTO @ParcelConstructor constructor(val main: String?, val description: String?)
+
+@Parcel(Parcel.Serialization.BEAN)
+data class ForecastDTO @ParcelConstructor constructor(val city: CityDTO?,
+                                                      val list: List<WeatherDetailsDTO>)
+
+@Parcel(Parcel.Serialization.BEAN)
+data class CityDTO @ParcelConstructor constructor(val name: String?,
+                                                  val coordDTO: CoordDTO?,
+                                                  val country: String?,
+                                                  val population: Double?)

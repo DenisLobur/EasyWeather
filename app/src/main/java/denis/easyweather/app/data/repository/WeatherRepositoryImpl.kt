@@ -1,9 +1,11 @@
 package denis.easyweather.app.data.repository
 
 import denis.easyweather.app.data.remote.RemoteWeatherDataSource
+import denis.easyweather.app.data.remote.weatherModel.ForecastResponse
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
 import denis.easyweather.app.data.room.CityEntity
 import denis.easyweather.app.data.room.RoomDataSource
+import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.dto.WeatherDetailsDTO
 import denis.easyweather.app.utils.TransformersDTO
 import io.reactivex.Completable
@@ -27,6 +29,13 @@ class WeatherRepositoryImpl @Inject constructor(
                 }
     }
 
+    override fun getFiveDaysForecast(cityName: String): Single<ForecastDTO> {
+        return remoteWeatherDataSource.requestFiveDaysForecastForCityByName(cityName)
+                .map { forecastREsponse: ForecastResponse ->
+                    TransformersDTO.transformToForecastDetailDTO(cityName, forecastREsponse)
+                }
+
+    }
 
     override fun getCities(): Flowable<List<CityEntity>> {
         return roomDataSource.weatherSearchCityDao().getAllCities()
