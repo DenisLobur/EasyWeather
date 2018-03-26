@@ -4,12 +4,15 @@ import org.parceler.Parcel
 import org.parceler.ParcelConstructor
 
 @Parcel(Parcel.Serialization.BEAN)
-data class WeatherDetailsDTO @ParcelConstructor constructor(val cityName: String,
+data class WeatherDetailsDTO @ParcelConstructor constructor(
+                                                            val dt: Long?,
+                                                            val cityName: String,
                                                             val coord: CoordDTO?,
                                                             val main: MainDTO?,
                                                             val clouds: CloudsDTO?,
                                                             val wind: WindDTO?,
-                                                            val weatherEntryList: List<WeatherEntryDTO>?)
+                                                            val weatherEntryList: List<WeatherEntryDTO>?,
+                                                            val dt_txt: String?)
 
 @Parcel(Parcel.Serialization.BEAN)
 data class MainDTO @ParcelConstructor constructor(val temp: Double?,

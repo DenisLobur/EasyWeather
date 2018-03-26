@@ -2,11 +2,13 @@ package denis.easyweather.app.data.remote.weatherModel
 
 
 data class WeatherResponse(
+        val dt: Long,
         val coord: Coord,
         val main: Main,
         val clouds: Clouds,
         val wind: Wind,
-        val weather: List<WeatherEntry>
+        val weather: List<WeatherEntry>,
+        val dt_txt: String
 )
 
 data class Coord(val lon: Double, val lat: Double)

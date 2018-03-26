@@ -7,6 +7,7 @@ import denis.easyweather.app.dto.*
 
 object TransformersDTO {
     fun transformToWeatherDetailsDTO(cityName: String, weatherResponse: WeatherResponse?): WeatherDetailsDTO {
+        val dt = weatherResponse?.dt
         val coord = CoordDTO(weatherResponse?.coord?.lon, weatherResponse?.coord?.lat)
         val main = MainDTO(weatherResponse?.main?.temp, weatherResponse?.main?.pressure, weatherResponse?.main?.humidity, weatherResponse?.main?.temp_min, weatherResponse?.main?.temp_max)
         val clouds = CloudsDTO(weatherResponse?.clouds?.all)
@@ -15,37 +16,49 @@ object TransformersDTO {
         weatherResponse?.weather?.forEach {
             weatherEntryList.add(WeatherEntryDTO(it.main, it.description))
         }
+        val dt_txt = weatherResponse?.dt_txt
 
         return WeatherDetailsDTO(
+                dt = dt,
                 cityName = cityName,
                 coord = coord,
                 main = main,
                 clouds = clouds,
                 wind = wind,
-                weatherEntryList = weatherEntryList
+                weatherEntryList = weatherEntryList,
+                dt_txt = dt_txt
         )
     }
 
     fun transformToForecastDetailDTO(cityName: String, forecastResponse: ForecastResponse?): ForecastDTO {
+        val dt = forecastResponse?.list?.first()?.dt
         val coord = CoordDTO(forecastResponse?.city?.coord?.lon, forecastResponse?.city?.coord?.lat)
         val city = CityDTO(forecastResponse?.city?.name, coord, forecastResponse?.city?.country, forecastResponse?.city?.population)
-        val weatherEntry = forecastResponse?.list?.first()
-        val main = MainDTO(
-                weatherEntry?.main?.temp,
-                weatherEntry?.main?.pressure,
-                weatherEntry?.main?.humidity,
-                weatherEntry?.main?.temp_min,
-                weatherEntry?.main?.temp_max)
-        val clouds = CloudsDTO(weatherEntry?.clouds?.all)
-        val wind = WindDTO(weatherEntry?.wind?.speed, weatherEntry?.wind?.deg)
+//        val weatherEntry = forecastResponse?.list?.first()
+//        val main = MainDTO(
+//                weatherEntry?.main?.temp,
+//                weatherEntry?.main?.pressure,
+//                weatherEntry?.main?.humidity,
+//                weatherEntry?.main?.temp_min,
+//                weatherEntry?.main?.temp_max)
+//        val clouds = CloudsDTO(weatherEntry?.clouds?.all)
+//        val wind = WindDTO(weatherEntry?.wind?.speed, weatherEntry?.wind?.deg)
 
-        val weatherList = ArrayList<WeatherEntryDTO>()
-        forecastResponse?.list?.forEach {
-            weatherList.add(WeatherEntryDTO(it.weather.first().main, it.weather.first().description))
+        val weatherEntry = ArrayList<WeatherEntryDTO>()
+        forecastResponse?.list?.forEach { weatherResponse ->
+            weatherEntry.add(WeatherEntryDTO(weatherResponse.weather[0].main, weatherResponse.weather[0].description))
         }
         val list = ArrayList<WeatherDetailsDTO>()
-        forecastResponse?.list?.forEach {
-            list.add(WeatherDetailsDTO(city.name!!, coord, main, clouds, wind, weatherList))
+        forecastResponse?.list?.forEach { weatherResponse ->
+            list.add(WeatherDetailsDTO(
+                    weatherResponse.dt,
+                    cityName,
+                    coord,
+                    MainDTO(weatherResponse.main.temp, weatherResponse.main.pressure, weatherResponse.main.humidity, weatherResponse.main.temp_min, weatherResponse.main.temp_max),
+                    CloudsDTO(weatherResponse.clouds.all),
+                    WindDTO(weatherResponse.wind.speed, weatherResponse.wind.deg),
+                    weatherEntry,
+                    weatherResponse.dt_txt))
         }
 
         return ForecastDTO(city = city,
