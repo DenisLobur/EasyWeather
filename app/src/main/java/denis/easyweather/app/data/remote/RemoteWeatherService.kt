@@ -17,5 +17,5 @@ interface RemoteWeatherService {
     fun requestWeatherForCityByName(@Query("q") cityName: String, @Query("APPID") apiKey: String, @Query("units") units: String): Single<WeatherResponse>
 
     @GET("forecast")
-    fun requestFiveDaysForecastForCityByName(@Query("q") cityName: String, @Query("APPID") apiKey: String): Single<ForecastResponse>
+    fun requestFiveDaysForecastForCityByName(@Query("q") cityName: String, @Query("APPID") apiKey: String, @Query("units") units: String): Single<ForecastResponse>
 }

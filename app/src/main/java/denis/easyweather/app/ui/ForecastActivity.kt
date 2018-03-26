@@ -2,9 +2,11 @@ package denis.easyweather.app.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import denis.easyweather.app.R
 import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.utils.Constants.FORECAST_RESPONSE
+import denis.easyweather.app.utils.StringFormatter
 import kotlinx.android.synthetic.main.activity_forecast.*
 import org.parceler.Parcels
 
@@ -32,47 +34,24 @@ class ForecastActivity : AppCompatActivity() {
     }
 
     private fun fillFiveDaysForecast(forecast: ForecastDTO) {
-        val dates = forecast.list.map { list ->
-            list.dt_txt
-        }.chunked(8)
-        val first = dates.first()
-        var firsTxt = ""
-        first.forEach {
-            firsTxt = firsTxt + it + "\n"
-        }
-
-        first_day.text = firsTxt
-
-        val second = dates.get(1)
-        var secondTxt = ""
-        second.forEach {
-            secondTxt = secondTxt + it + "\n"
-        }
-
-        second_day.text = secondTxt
-
-        val third = dates.get(2)
-        var thirdTxt = ""
-        third.forEach {
-            thirdTxt = thirdTxt + it + "\n"
-        }
-
-        third_day.text = thirdTxt
-
-        val fourth = dates.get(3)
-        var fourthTxt = ""
-        fourth.forEach {
-            fourthTxt = fourthTxt + it + "\n"
-        }
-
-        fourth_day.text = fourthTxt
-
-        val fifth = dates.get(4)
-        var fifthTxt = ""
-        fifth.forEach {
-            fifthTxt = fifthTxt + it + "\n"
-        }
-
-        fifth_day.text = fifthTxt
+        var counter = 0
+        val firstMidnight = forecast.list.map { it.dt_txt }.indexOfFirst { it!!.endsWith("00:00:00") }
+        counter = counter + firstMidnight
+        val firstDay = forecast.list.subList(0, counter)
+        val secondDay = forecast.list.subList(counter, counter + 8)
+        val thirdDay = forecast.list.subList(counter + 8, counter + 16)
+        val fourthDay = forecast.list.subList(counter + 16, counter + 24)
+        val fifthDay = forecast.list.subList(counter + 24, counter + 32)
+        val lastDay = forecast.list.subList(counter + 32, forecast.list.size)
+        val firstDayMins = firstDay.map { it.main!!.tempMin!! }.average()
+        val firstDayMaxes = firstDay.map { it.main!!.tempMax!! }.average()
+        Log.d(TAG, "mins: " + firstDayMins + " maxes: " + firstDayMaxes)
+        first_day.text = "min: " + StringFormatter.convertFahrenheitToCelsius(firstDayMins) + "\n" + "max: " + StringFormatter.convertFahrenheitToCelsius(firstDayMaxes)
+//        Log.d(TAG, firstDay.toString())
+//        Log.d(TAG, secondDay.toString())
+//        Log.d(TAG, thirdDay.toString())
+//        Log.d(TAG, fourthDay.toString())
+//        Log.d(TAG, fifthDay.toString())
+//        Log.d(TAG, lastDay.toString())
     }
 }
