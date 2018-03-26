@@ -2,10 +2,10 @@ package denis.easyweather.app.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import denis.easyweather.app.R
 import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.utils.Constants.FORECAST_RESPONSE
+import kotlinx.android.synthetic.main.activity_forecast.*
 import org.parceler.Parcels
 
 /**
@@ -32,8 +32,47 @@ class ForecastActivity : AppCompatActivity() {
     }
 
     private fun fillFiveDaysForecast(forecast: ForecastDTO) {
-        forecast.list.forEach { list ->
-            Log.d(TAG, list.dt_txt)
+        val dates = forecast.list.map { list ->
+            list.dt_txt
+        }.chunked(8)
+        val first = dates.first()
+        var firsTxt = ""
+        first.forEach {
+            firsTxt = firsTxt + it + "\n"
         }
+
+        first_day.text = firsTxt
+
+        val second = dates.get(1)
+        var secondTxt = ""
+        second.forEach {
+            secondTxt = secondTxt + it + "\n"
+        }
+
+        second_day.text = secondTxt
+
+        val third = dates.get(2)
+        var thirdTxt = ""
+        third.forEach {
+            thirdTxt = thirdTxt + it + "\n"
+        }
+
+        third_day.text = thirdTxt
+
+        val fourth = dates.get(3)
+        var fourthTxt = ""
+        fourth.forEach {
+            fourthTxt = fourthTxt + it + "\n"
+        }
+
+        fourth_day.text = fourthTxt
+
+        val fifth = dates.get(4)
+        var fifthTxt = ""
+        fifth.forEach {
+            fifthTxt = fifthTxt + it + "\n"
+        }
+
+        fifth_day.text = fifthTxt
     }
 }
