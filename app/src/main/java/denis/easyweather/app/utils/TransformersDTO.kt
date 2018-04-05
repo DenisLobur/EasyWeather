@@ -34,22 +34,12 @@ object TransformersDTO {
         val dt = forecastResponse?.list?.first()?.dt
         val coord = CoordDTO(forecastResponse?.city?.coord?.lon, forecastResponse?.city?.coord?.lat)
         val city = CityDTO(forecastResponse?.city?.name, coord, forecastResponse?.city?.country, forecastResponse?.city?.population)
-//        val weatherEntry = forecastResponse?.list?.first()
-//        val main = MainDTO(
-//                weatherEntry?.main?.temp,
-//                weatherEntry?.main?.pressure,
-//                weatherEntry?.main?.humidity,
-//                weatherEntry?.main?.temp_min,
-//                weatherEntry?.main?.temp_max)
-//        val clouds = CloudsDTO(weatherEntry?.clouds?.all)
-//        val wind = WindDTO(weatherEntry?.wind?.speed, weatherEntry?.wind?.deg)
-
         val weatherEntry = ArrayList<WeatherEntryDTO>()
         forecastResponse?.list?.forEach { weatherResponse ->
             weatherEntry.add(WeatherEntryDTO(weatherResponse.weather[0].main, weatherResponse.weather[0].description))
         }
         val list = ArrayList<WeatherDetailsDTO>()
-        forecastResponse?.list?.forEach { weatherResponse ->
+        forecastResponse?.list?.forEachIndexed {period,  weatherResponse ->
             list.add(WeatherDetailsDTO(
                     weatherResponse.dt,
                     cityName,
@@ -57,7 +47,7 @@ object TransformersDTO {
                     MainDTO(weatherResponse.main.temp, weatherResponse.main.pressure, weatherResponse.main.humidity, weatherResponse.main.temp_min, weatherResponse.main.temp_max),
                     CloudsDTO(weatherResponse.clouds.all),
                     WindDTO(weatherResponse.wind.speed, weatherResponse.wind.deg),
-                    weatherEntry,
+                    arrayListOf(weatherEntry[period]),
                     weatherResponse.dt_txt))
         }
 
