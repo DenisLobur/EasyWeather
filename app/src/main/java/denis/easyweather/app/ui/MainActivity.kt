@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import denis.easyweather.app.R
+import denis.easyweather.app.common.Util
 import denis.easyweather.app.di.WeatherApplication
 import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.dto.WeatherDetailsDTO
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ forecastResponse: ForecastDTO? ->
+                    Util.hideKeyboard(this)
                     navigateToDetailsActivity(forecastResponse)
                 }, { throwable -> Log.d(TAG, throwable.message) })
     }
