@@ -10,4 +10,6 @@
     <color name="orange">@android:color/holo_orange_light</color>
     <color name="background_color">#30000000</color>
     <color name="black">@android:color/black</color>
+    <color name="high_temp_color">#18ff0000</color>
+    <color name="low_temp_color">#0000ff</color>
 </resources>

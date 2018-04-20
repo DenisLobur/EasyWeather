@@ -10,8 +10,8 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:orientation="vertical"
-      android:background="@color/orange">
+      android:background="@color/orange"
+      android:orientation="vertical">
 
         <TextView
           android:id="@+id/date"
@@ -31,22 +31,34 @@
 
         <FrameLayout
           android:layout_width="match_parent"
-          android:layout_height="400dp"
+          android:layout_height="200dp"
           android:clipChildren="false">
 
             <me.panpf.swsv.SpiderWebScoreView
-              android:id="@+id/spiderWeb_mainActivity_1"
-              android:layout_width="200dp"
-              android:layout_height="200dp"
-              android:layout_gravity="center" />
+              android:id="@+id/spiderWebTemp"
+              android:layout_width="150dp"
+              android:layout_height="1500dp"
+              android:layout_gravity="center"/>
 
             <me.panpf.swsv.CircularLayout
-              android:id="@+id/layout_mainActivity_circular1"
-              android:layout_width="200dp"
-              android:layout_height="200dp"
+              android:id="@+id/circularTemp"
+              android:layout_width="150dp"
+              android:layout_height="150dp"
               android:layout_gravity="center"
               android:clipChildren="false"/>
         </FrameLayout>
+
+        <com.androidplot.xy.XYPlot
+          style="@style/APDefacto.Dark"
+          android:id="@+id/plot"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          app:title="A Simple XY Plot"
+          app:rangeTitle="range"
+          app:domainTitle="domain"
+          app:lineLabels="left|bottom"
+          app:lineLabelRotationBottom="-45"/>
+
 
     </LinearLayout>
 
