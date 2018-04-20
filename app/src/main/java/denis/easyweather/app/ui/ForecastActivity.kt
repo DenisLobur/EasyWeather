@@ -13,7 +13,6 @@ import denis.easyweather.app.common.Util
 import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.utils.Constants.FORECAST_RESPONSE
 import kotlinx.android.synthetic.main.activity_forecast.*
-import kotlinx.android.synthetic.main.item_forecast_day.*
 import kotlinx.android.synthetic.main.item_forecast_day.view.*
 import kotlinx.android.synthetic.main.label_temperature.view.*
 import me.panpf.swsv.CircularLayout
@@ -49,23 +48,6 @@ class ForecastActivity : AppCompatActivity() {
         return true
     }
 
-//    private fun setup(scores: List<Score>) {
-//        val scoreArray = FloatArray(scores.size)
-//        for (w in scores.indices) {
-//            scoreArray[w] = scores[w].score
-//        }
-//        spiderWeb_mainActivity_1.setScores(10f, scoreArray)
-//
-//        layout_mainActivity_circular1.removeAllViews()
-//        for (score in scores) {
-//            val scoreTextView = LayoutInflater.from(baseContext).inflate(android.R.layout.simple_list_item_1, layout_mainActivity_circular1, false) as TextView
-//            scoreTextView.text = score.score.toString() + ""
-//            layout_mainActivity_circular1.addView(scoreTextView)
-//        }
-//    }
-
-    class Score(val score: Float)
-
     private fun fillFiveDaysForecast(forecast: ForecastDTO) {
         var counter = 0
         val firstMidnight = forecast.list.map { it.dt_txt }.indexOfFirst { it!!.endsWith("00:00:00") }
@@ -82,43 +64,16 @@ class ForecastActivity : AppCompatActivity() {
             val dayView = this.layoutInflater.inflate(R.layout.item_forecast_day, horizontalLayout, false) as CardView
             dayView.date.text = Util.formatDay(day.map { it.dt_txt!! }.first()) + "\n" + Util.formatMonth(day.map { it.dt_txt!! }.first()).capitalize()
             dayView.times.text = day.map { it -> it.dt_txt.plus(" ").plus(it.main!!.temp).plus(" ").plus(it.main!!.humidity).plus("\n") }.toString()
+            val tempMinList = FloatArray(8)
+            day.forEachIndexed { index, it ->  tempMinList.set(index, it.main!!.temp!!.toFloat()) }
+            val tempMaxList = FloatArray(8)
+            day.forEachIndexed { index, it ->  tempMaxList.set(index, it.main!!.temp!!.toFloat()) }
             val tempList = FloatArray(8)
             day.forEachIndexed { index, it ->  tempList.set(index, it.main!!.temp!!.toFloat()) }
-
             drawTemperature(tempList, dayView.spiderWebTemp, dayView.circularTemp)
+            drawPlot(dayView.plot, tempMinList, tempMaxList)
             horizontalLayout.addView(dayView)
         }
-
-        drawPlot(plot)
-
-
-        val firstDayMins = firstDay.map { it.main!!.tempMin!! }.min()
-        val firstDayMaxes = firstDay.map { it.main!!.tempMax!! }.max()
-
-        val secondDayMins = secondDay.map { it.main!!.tempMin!! }.min()
-        val secondDayMaxes = secondDay.map { it.main!!.tempMax!! }.max()
-
-        val thirdDayMins = thirdDay.map { it.main!!.tempMin!! }.min()
-        val thirdDayMaxes = thirdDay.map { it.main!!.tempMax!! }.max()
-
-        val fourthDayMins = fourthDay.map { it.main!!.tempMin!! }.min()
-        val fourthDayMaxes = fourthDay.map { it.main!!.tempMax!! }.max()
-
-        val fifthDayMins = fifthDay.map { it.main!!.tempMin!! }.min()
-        val fifthDayMaxes = fifthDay.map { it.main!!.tempMax!! }.max()
-
-        val lastDayMins = lastDay.map { it.main!!.tempMin!! }.min()
-        val lastDayMaxes = lastDay.map { it.main!!.tempMax!! }.max()
-
-//        first_day.text = "min: " + firstDayMins!!.roundToInt() + "\n" + "max: " + firstDayMaxes!!.roundToInt()
-//        second_day.text = "min: " + secondDayMins!!.roundToInt() + "\n" + "max: " + secondDayMaxes!!.roundToInt()
-//        third_day.text = "min: " + thirdDayMins!!.roundToInt() + "\n" + "max: " + thirdDayMaxes!!.roundToInt()
-//        fourth_day.text = "min: " + fourthDayMins!!.roundToInt() + "\n" + "max: " + fourthDayMaxes!!.roundToInt()
-//        fifth_day.text = "min: " + fifthDayMins!!.roundToInt() + "\n" + "max: " + fifthDayMaxes!!.roundToInt()
-//        last_day.text = "min: " + lastDayMins!!.roundToInt() + "\n" + "max: " + lastDayMaxes!!.roundToInt()
-
-        val description = thirdDay.map { it.weatherEntryList!!.first().description}
-//        Log.d("description", description.toString())
     }
 
 
@@ -140,15 +95,15 @@ class ForecastActivity : AppCompatActivity() {
         }
     }
 
-    private fun drawPlot(plot: XYPlot){
+    private fun drawPlot(plot: XYPlot, minTemp: FloatArray, maxList: FloatArray){
         val domainLabels = arrayOf<Number>(1, 2, 3, 6, 7, 8, 9, 10, 13, 14)
         val series1Numbers = arrayOf<Number>(1, 4, 2, 8, 4, 16, 8, 32, 16, 64)
         val series2Numbers = arrayOf<Number>(5, 2, 10, 5, 20, 10, 40, 20, 80, 40)
 
         // turn the above arrays into XYSeries':
         // (Y_VALS_ONLY means use the element index as the x value)
-        val series1 = SimpleXYSeries(arrayListOf(1, 4, 2, 8, 4, 16, 8, 32, 16, 64), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series1")
-        val series2 = SimpleXYSeries(arrayListOf(5, 2, 10, 5, 20, 10, 40, 20, 80, 40), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series2")
+        val series1 = SimpleXYSeries(minTemp.asList(), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series1")
+        val series2 = SimpleXYSeries(maxList.toList(), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series2")
 
         // create formatters to use for drawing a series using LineAndPointRenderer
         // and configure them from xml:

@@ -50,6 +50,9 @@
 
         <com.androidplot.xy.XYPlot
           style="@style/APDefacto.Dark"
+          app:backgroundColor="@color/white"
+          app:graphBackgroundColor="@color/white"
+          app:background="@color/white"
           android:id="@+id/plot"
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"
