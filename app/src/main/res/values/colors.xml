@@ -12,4 +12,10 @@
     <color name="black">@android:color/black</color>
     <color name="high_temp_color">#18ff0000</color>
     <color name="low_temp_color">#0000ff</color>
+    <color name="input_field_error_color">#cb6671</color>
+    <color name="input_field_label_color">#43484d</color>
+    <color name="rg_gold">#FDB714</color>
+    <color name="input_idle_state_color">#36000000</color>
+    <color name="input_field_hint_color">#5e6977</color>
+    <color name="input_field_border_color">#e4ebef</color>
 </resources>

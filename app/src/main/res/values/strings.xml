@@ -29,4 +29,8 @@
     <string name="sunset">Sunset: %1$s</string>
     <string name="five_days_label"> 5 Days Forecast</string>
 
+    <string name="city_name">City name</string>
+    <string name="city_label">Enter city</string>
+    <string name="city_hint">City hint</string>
+
 </resources>

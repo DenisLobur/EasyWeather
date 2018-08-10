@@ -5,4 +5,29 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="InputFieldLabel">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:lineSpacingExtra">16sp</item>
+        <item name="android:textColor">@color/input_field_label_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="InputFieldTheme">
+        <item name="colorControlActivated">@color/rg_gold</item>
+        <item name="colorControlNormal">@color/input_idle_state_color</item>
+    </style>
+
+    <style name="InputFieldTheme.EditText">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:background">@drawable/white_rect_with_gray_border</item>
+        <item name="android:paddingStart">21dp</item>
+        <item name="android:paddingEnd">21dp</item>
+        <item name="android:lines">1</item>
+        <item name="android:lineSpacingExtra">17sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:textColorHint">@color/input_field_hint_color</item>
+    </style>
+
 </resources>

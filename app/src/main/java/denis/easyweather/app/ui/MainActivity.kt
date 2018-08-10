@@ -17,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.view_input_field.view.*
 import org.parceler.Parcels
 import javax.inject.Inject
 
@@ -36,12 +37,12 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 
         searchCity.setOnClickListener {
-            val cityName = city.text.toString()
+            val cityName = city.input_field.text.toString()
             setupWeatherDetailObserver(cityName)
         }
 
         fiveDaysBtn.setOnClickListener {
-            val cityName = city.text.toString()
+            val cityName = city.input_field.text.toString()
             setupForecastObserver(cityName)
         }
 
