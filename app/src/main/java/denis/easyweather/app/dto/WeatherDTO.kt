@@ -32,7 +32,7 @@ data class CoordDTO @ParcelConstructor constructor(val longitude: Double?,
                                                    val latitude: Double?)
 
 @Parcel(Parcel.Serialization.BEAN)
-data class WeatherEntryDTO @ParcelConstructor constructor(val main: String?, val description: String?)
+data class WeatherEntryDTO @ParcelConstructor constructor(val main: String?, val id: Int?, val description: String?)
 
 @Parcel(Parcel.Serialization.BEAN)
 data class ForecastDTO @ParcelConstructor constructor(val city: CityDTO?,

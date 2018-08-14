@@ -19,7 +19,7 @@ data class Clouds(val all: Int)
 
 data class Wind(val speed: Double, val deg: Double)
 
-data class WeatherEntry(val main: String, val description: String)
+data class WeatherEntry(val main: String, val id: Int, val description: String)
 
 data class ForecastResponse(val city: CityForecast,
                             val list: List<WeatherResponse>)

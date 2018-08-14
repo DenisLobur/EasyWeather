@@ -63,6 +63,8 @@ class MainActivity : AppCompatActivity() {
                     cloudsValue.text = getString(R.string.clouds_value, weatherResponse?.clouds?.all!!.toString())
                     windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse?.wind.deg!!))
                     description.text = weatherResponse?.weatherEntryList?.get(0)?.description
+                    val descrId = weatherResponse?.weatherEntryList?.get(0)?.id
+                    weatherImg.setImageResource(mapDescrToIcon(descrId))
                 }, { throwable -> Log.d(TAG, throwable.message) })
     }
 
@@ -80,6 +82,25 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, ForecastActivity::class.java)
         intent.putExtra(FORECAST_RESPONSE, Parcels.wrap(forecastResponse))
         startActivity(intent)
+    }
+
+    private fun mapDescrToIcon(descrId: Int?): Int {
+
+        val icon = when (descrId) {
+            in (200 .. 232) -> R.drawable.ic_thunderstorm
+            in (300 .. 321) -> R.drawable.ic_rain
+            in (500 .. 531) -> R.drawable.ic_rain
+            in (600 .. 622) -> R.drawable.ic_snow
+            in (701 .. 781) -> R.drawable.ic_mist
+            800 -> R.drawable.ic_clear_sky
+            801 -> R.drawable.ic_few_clouds
+            802 -> R.drawable.ic_scattered_clouds
+            803 -> R.drawable.ic_broken_clouds
+            804 -> R.drawable.ic_broken_clouds
+            else -> R.drawable.ic_clear_sky
+        }
+
+        return icon
     }
 
 
