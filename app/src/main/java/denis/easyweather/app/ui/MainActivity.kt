@@ -12,6 +12,7 @@ import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.dto.WeatherDetailsDTO
 import denis.easyweather.app.utils.Constants.FORECAST_RESPONSE
 import denis.easyweather.app.utils.StringFormatter
+import denis.easyweather.app.utils.ViewUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -19,6 +20,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_input_field.view.*
 import org.parceler.Parcels
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         searchCity.setOnClickListener {
             val cityName = city.input_field.text.toString()
             setupWeatherDetailObserver(cityName)
+            ViewUtils.hideKeyboard(this)
         }
 
         fiveDaysBtn.setOnClickListener {
@@ -65,6 +68,8 @@ class MainActivity : AppCompatActivity() {
                     description.text = weatherResponse?.weatherEntryList?.get(0)?.description
                     val descrId = weatherResponse?.weatherEntryList?.get(0)?.id
                     weatherImg.setImageResource(mapDescrToIcon(descrId))
+                    sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunrise, TimeZone.getDefault().getDisplayName()))
+                    sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault().getDisplayName()))
                 }, { throwable -> Log.d(TAG, throwable.message) })
     }
 
@@ -102,6 +107,8 @@ class MainActivity : AppCompatActivity() {
 
         return icon
     }
+
+
 
 
 }

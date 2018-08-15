@@ -12,7 +12,8 @@ data class WeatherDetailsDTO @ParcelConstructor constructor(
                                                             val clouds: CloudsDTO?,
                                                             val wind: WindDTO?,
                                                             val weatherEntryList: List<WeatherEntryDTO>?,
-                                                            val dt_txt: String?)
+                                                            val dt_txt: String?,
+                                                            val sys: SysDTO?)
 
 @Parcel(Parcel.Serialization.BEAN)
 data class MainDTO @ParcelConstructor constructor(val temp: Double?,
@@ -43,3 +44,8 @@ data class CityDTO @ParcelConstructor constructor(val name: String?,
                                                   val coordDTO: CoordDTO?,
                                                   val country: String?,
                                                   val population: Double?)
+
+@Parcel(Parcel.Serialization.BEAN)
+data class SysDTO @ParcelConstructor constructor(val country: String?,
+                                                 val sunrise: Long?,
+                                                 val sunset: Long?)

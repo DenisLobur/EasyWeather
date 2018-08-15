@@ -8,7 +8,8 @@ data class WeatherResponse(
         val clouds: Clouds,
         val wind: Wind,
         val weather: List<WeatherEntry>,
-        val dt_txt: String
+        val dt_txt: String,
+        val sys: Sys
 )
 
 data class Coord(val lon: Double, val lat: Double)
@@ -28,3 +29,7 @@ data class CityForecast(val name: String,
                         val coord: Coord,
                         val country: String,
                         val population: Double)
+
+data class Sys(val country: String,
+               val sunrise: Long,
+               val sunset: Long)

@@ -17,6 +17,7 @@ object TransformersDTO {
             weatherEntryList.add(WeatherEntryDTO(it.main, it.id, it.description))
         }
         val dt_txt = weatherResponse?.dt_txt
+        val sys = SysDTO(weatherResponse?.sys?.country, weatherResponse?.sys?.sunrise, weatherResponse?.sys?.sunset)
 
         return WeatherDetailsDTO(
                 dt = dt,
@@ -26,7 +27,8 @@ object TransformersDTO {
                 clouds = clouds,
                 wind = wind,
                 weatherEntryList = weatherEntryList,
-                dt_txt = dt_txt
+                dt_txt = dt_txt,
+                sys = sys
         )
     }
 
@@ -48,7 +50,8 @@ object TransformersDTO {
                     CloudsDTO(weatherResponse.clouds.all),
                     WindDTO(weatherResponse.wind.speed, weatherResponse.wind.deg),
                     arrayListOf(weatherEntry[period]),
-                    weatherResponse.dt_txt))
+                    weatherResponse.dt_txt,
+                    SysDTO(weatherResponse.sys.country, weatherResponse.sys.sunrise, weatherResponse.sys.sunset)))
         }
 
         return ForecastDTO(city = city,
