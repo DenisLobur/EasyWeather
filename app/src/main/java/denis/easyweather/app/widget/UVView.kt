@@ -6,17 +6,22 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import denis.easyweather.app.R
+import kotlin.math.cos
+import kotlin.math.sin
 
 class UVView : View {
     lateinit var paintGreenCircle: Paint
     lateinit var paintYellowCircle: Paint
     lateinit var paintOrangeCircle: Paint
     lateinit var paintRedCircle: Paint
-    lateinit var ovalGreen: RectF
-    lateinit var ovalYellow: RectF
-    lateinit var ovalOrange: RectF
-    lateinit var ovalRed: RectF
+    lateinit var oval: RectF
+    lateinit var paintArrow: Paint
+    lateinit var paintPoint: Paint
+    var xMiddle = 0F
+    var yMiddle = 0F
 
     constructor(context: Context?) : super(context) {
         init()
@@ -31,40 +36,84 @@ class UVView : View {
     }
 
     private fun init() {
-        paintGreenCircle = Paint()
-        paintGreenCircle.color = Color.GREEN
-        paintGreenCircle.style = Paint.Style.STROKE
-        paintGreenCircle.strokeWidth = 20F
+        paintGreenCircle = Paint().apply {
+            color = Color.GREEN
+            style = Paint.Style.STROKE
+            strokeWidth = 60F
+        }
+
 
         paintYellowCircle = Paint()
         paintYellowCircle.color = Color.YELLOW
         paintYellowCircle.style = Paint.Style.STROKE
-        paintYellowCircle.strokeWidth = 20F
+        paintYellowCircle.strokeWidth = 60F
 
         paintOrangeCircle = Paint()
-        paintOrangeCircle.color = Color.CYAN
+        paintOrangeCircle.color = resources.getColor(R.color.orange)
         paintOrangeCircle.style = Paint.Style.STROKE
-        paintOrangeCircle.strokeWidth = 20F
+        paintOrangeCircle.strokeWidth = 60F
 
         paintRedCircle = Paint()
         paintRedCircle.color = Color.RED
         paintRedCircle.style = Paint.Style.STROKE
-        paintRedCircle.strokeWidth = 20F
+        paintRedCircle.strokeWidth = 60F
 
-        ovalGreen = RectF(0F, 0F, 800F, 800F)
-//        ovalYellow = RectF(0F, 0F, 800F, 800F)
-//        ovalOrange = RectF(0F, 0F, 800F, 800F)
-//        ovalRed = RectF(0F, 0F, 800F, 800F)
+        oval = RectF()
+        Log.d(TAG, " init x: " + xMiddle + " y: " + yMiddle)
+
+        paintArrow = Paint()
+        paintArrow.color = Color.BLUE
+        paintArrow.style = Paint.Style.STROKE
+        paintArrow.strokeWidth = 5F
+
+        xCoord = 500 * cos(234F)
+        yCoord = 500 * sin(234F)
+
+        paintPoint = Paint().apply {
+            color = Color.RED
+            style = Paint.Style.STROKE
+            strokeWidth = 20F
+        }
+    }
+
+    var xCoord: Float = 0F
+    var yCoord: Float = 0F
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+
+        xMiddle = w/2F
+        yMiddle = h/2F
+        Log.d(TAG, " onSize x: " + xMiddle + " y: " + yMiddle)
 
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        canvas?.drawArc(ovalGreen, 180F, 45F, false, paintGreenCircle)
-        canvas?.drawArc(ovalGreen, 225F, 45F, false, paintYellowCircle)
-        canvas?.drawArc(ovalGreen, 270F, 45F, false, paintOrangeCircle)
-        canvas?.drawArc(ovalGreen, 315F, 45F, false, paintRedCircle)
-//        canvas?.drawCircle(100F, 100F, 200F, paintCircle)
+        canvas.apply {
+            oval.apply {
+                left = width/2 - 100F
+                top = height/2 - 100F
+                right = width/2 + 100F
+                bottom = height/2 + 100F
+            }
+
+            drawArc(oval, 180F, 54F, false, paintGreenCircle)
+            drawArc(oval, 234F, 54F, false, paintYellowCircle)
+            drawArc(oval, 288F, 36F, false, paintOrangeCircle)
+            drawArc(oval, 324F, 36F, false, paintRedCircle)
+//            drawCircle(xMiddle, yMiddle, yMiddle - 20, paintGreenCircle)
+
+            drawLine(0f, 0f, xMiddle, yMiddle, paintArrow)
+            drawPoint(xMiddle, yMiddle, paintPoint)
+
+
+
+        }
+    }
+
+    companion object {
+        val TAG = UVView::class.java.simpleName
     }
 }
