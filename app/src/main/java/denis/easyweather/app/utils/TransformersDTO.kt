@@ -1,6 +1,7 @@
 package denis.easyweather.app.utils
 
 import denis.easyweather.app.data.remote.weatherModel.ForecastResponse
+import denis.easyweather.app.data.remote.weatherModel.UVResponse
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
 import denis.easyweather.app.dto.*
 
@@ -41,7 +42,7 @@ object TransformersDTO {
             weatherEntry.add(WeatherEntryDTO(weatherResponse.weather[0].main, weatherResponse.weather[0].id, weatherResponse.weather[0].description))
         }
         val list = ArrayList<WeatherDetailsDTO>()
-        forecastResponse?.list?.forEachIndexed {period,  weatherResponse ->
+        forecastResponse?.list?.forEachIndexed { period, weatherResponse ->
             list.add(WeatherDetailsDTO(
                     weatherResponse.dt,
                     cityName,
@@ -56,6 +57,15 @@ object TransformersDTO {
 
         return ForecastDTO(city = city,
                 list = list)
+    }
+
+    fun transformUVDTO(uvResponse: UVResponse): UVDTO {
+        val lat = uvResponse.lat
+        val lon = uvResponse.lon
+        val date = uvResponse.date
+        val value = uvResponse.value
+
+        return UVDTO(lat, lon, date, value)
     }
 
 }

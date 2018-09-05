@@ -33,3 +33,8 @@ data class CityForecast(val name: String,
 data class Sys(val country: String,
                val sunrise: Long,
                val sunset: Long)
+
+data class UVResponse(val lat: String,
+                      val lon: String,
+                      val date: Long,
+                      val value: Float)

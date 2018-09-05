@@ -11,6 +11,8 @@ class WeatherViewModel @Inject constructor(val weatherRepository: WeatherReposit
 
     fun getForecast(cityName: String) = weatherRepository.getFiveDaysForecast(cityName)
 
+    fun getUVData(lat: String, lon: String) = weatherRepository.getUVData(lat, lon)
+
     fun getCities() = weatherRepository.getCities()
 
     fun addCity(cityName: String) = weatherRepository.addCity(cityName)

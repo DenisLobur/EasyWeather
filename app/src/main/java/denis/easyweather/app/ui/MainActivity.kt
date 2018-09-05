@@ -70,6 +70,15 @@ class MainActivity : AppCompatActivity() {
                     weatherImg.setImageResource(mapDescrToIcon(descrId))
                     sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunrise, TimeZone.getDefault().getDisplayName()))
                     sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault().getDisplayName()))
+
+                    viewModel.getUVData(weatherResponse.coord?.latitude.toString(), weatherResponse.coord?.longitude.toString())
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({
+                                Log.d(TAG, "UV = " + it)
+                                val uv = uv_widget
+                                uv.setUv(it.value!!)
+                            }, {throwable2 -> Log.d(TAG, throwable2.message)})
                 }, { throwable -> Log.d(TAG, throwable.message) })
     }
 

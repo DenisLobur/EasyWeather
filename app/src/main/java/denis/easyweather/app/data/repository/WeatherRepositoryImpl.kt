@@ -2,10 +2,12 @@ package denis.easyweather.app.data.repository
 
 import denis.easyweather.app.data.remote.RemoteWeatherDataSource
 import denis.easyweather.app.data.remote.weatherModel.ForecastResponse
+import denis.easyweather.app.data.remote.weatherModel.UVResponse
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
 import denis.easyweather.app.data.room.CityEntity
 import denis.easyweather.app.data.room.RoomDataSource
 import denis.easyweather.app.dto.ForecastDTO
+import denis.easyweather.app.dto.UVDTO
 import denis.easyweather.app.dto.WeatherDetailsDTO
 import denis.easyweather.app.utils.TransformersDTO
 import io.reactivex.Completable
@@ -45,4 +47,10 @@ class WeatherRepositoryImpl @Inject constructor(
         Completable.fromCallable { roomDataSource.weatherSearchCityDao().insertCity(CityEntity(cityName = cityName)) }.subscribeOn(Schedulers.io()).subscribe()
     }
 
+    override fun getUVData(lat: String, lon: String): Single<UVDTO> {
+        return remoteWeatherDataSource.requestUVDataByCoordinates(lat, lon)
+                .map { uvResponse: UVResponse ->
+                    TransformersDTO.transformUVDTO(uvResponse)
+                }
+    }
 }
