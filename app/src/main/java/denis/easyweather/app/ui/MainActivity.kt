@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({
-                                Log.d(TAG, "UV = " + it)
                                 val uv = uv_widget
                                 uv.setUv(it.value!!)
                             }, {throwable2 -> Log.d(TAG, throwable2.message)})
@@ -116,8 +115,4 @@ class MainActivity : AppCompatActivity() {
 
         return icon
     }
-
-
-
-
 }

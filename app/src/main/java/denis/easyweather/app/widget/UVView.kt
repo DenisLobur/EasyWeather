@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import denis.easyweather.app.R
 import kotlin.math.PI
@@ -14,30 +13,19 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : View(context, attrs, defStyle) {
-    private lateinit var paintGreenCircle: Paint
-    private lateinit var paintYellowCircle: Paint
-    private lateinit var paintOrangeCircle: Paint
-    private lateinit var paintRedCircle: Paint
-    private lateinit var oval: RectF
-    private lateinit var paintArrow: Paint
-    private lateinit var paintPoint: Paint
+
+    private var paintGreenCircle: Paint
+    private var paintYellowCircle: Paint
+    private var paintOrangeCircle: Paint
+    private var paintRedCircle: Paint
+    private var oval: RectF
+    private var paintArrow: Paint
+    private var paintPoint: Paint
     private var xMiddle = 0F
     private var yMiddle = 0F
     private var xCoord: Float = 0F
     private var yCoord: Float = 0F
     private var uvVal: Float = 0F
-
-//    constructor(context: Context?) : super(context) {
-//        init()
-//    }
-//
-//    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-//        init()
-//    }
-//
-//    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-//        init()
-//    }
 
     fun setUv(uv: Float) {
         uvVal = uv
@@ -52,32 +40,31 @@ class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
             strokeWidth = 60F
         }
 
+        paintYellowCircle = Paint().apply {
+            color = Color.YELLOW
+            style = Paint.Style.STROKE
+            strokeWidth = 60F
+        }
 
-        paintYellowCircle = Paint()
-        paintYellowCircle.color = Color.YELLOW
-        paintYellowCircle.style = Paint.Style.STROKE
-        paintYellowCircle.strokeWidth = 60F
+        paintOrangeCircle = Paint().apply {
+            color = resources.getColor(R.color.orange)
+            style = Paint.Style.STROKE
+            strokeWidth = 60F
+        }
 
-        paintOrangeCircle = Paint()
-        paintOrangeCircle.color = resources.getColor(R.color.orange)
-        paintOrangeCircle.style = Paint.Style.STROKE
-        paintOrangeCircle.strokeWidth = 60F
-
-        paintRedCircle = Paint()
-        paintRedCircle.color = Color.RED
-        paintRedCircle.style = Paint.Style.STROKE
-        paintRedCircle.strokeWidth = 60F
+        paintRedCircle = Paint().apply {
+            color = Color.RED
+            style = Paint.Style.STROKE
+            strokeWidth = 60F
+        }
 
         oval = RectF()
-        Log.d(TAG, " init x: " + xMiddle + " y: " + yMiddle)
 
-        paintArrow = Paint()
-        paintArrow.color = Color.BLUE
-        paintArrow.style = Paint.Style.STROKE
-        paintArrow.strokeWidth = 5F
-
-//        xCoord = (xMiddle + 40 * sin(1.57)).toFloat()
-//        yCoord = (yMiddle + 40 * cos(1.57)).toFloat()
+        paintArrow = Paint().apply {
+            color = Color.BLUE
+            style = Paint.Style.STROKE
+            strokeWidth = 5F
+        }
 
         paintPoint = Paint().apply {
             color = Color.RED
@@ -86,7 +73,6 @@ class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
         }
     }
 
-
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
@@ -94,8 +80,6 @@ class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
         yMiddle = h / 2F
         xCoord = (xMiddle + 40 * sin(3.14)).toFloat()
         yCoord = (yMiddle + 40 * cos(3.14)).toFloat()
-        Log.d(TAG, " onSize x: " + xMiddle + " y: " + yMiddle)
-
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -119,8 +103,6 @@ class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
             drawLine(xMiddle, yMiddle, xStop, yStop, paintArrow)
             drawPoint(xMiddle, yMiddle, paintPoint)
-
-
         }
     }
 
@@ -128,7 +110,7 @@ class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
         val ex = uvValue * 18 // degrees per one UV value
         val radius = 100
 
-        val theta = (270 - ex) * PI/180
+        val theta = (270 - ex) * PI / 180
         val xEnd = (xMiddle + radius * sin(theta)).toFloat()
         val yEnd = (yMiddle + radius * cos(theta)).toFloat()
 
