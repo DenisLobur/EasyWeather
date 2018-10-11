@@ -5,4 +5,5 @@ OpenWeatherAPI client for fetching basic weather for a city
 - Added sunrise/sunset widgets
 - Added UV widget
 - Added geolocation
-- Added ciurrent city name
+- Added current city name
+- Added fetch weather for one city for current location

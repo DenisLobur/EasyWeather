@@ -1,6 +1,7 @@
 package denis.easyweather.app.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -67,10 +69,19 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             // Permission has already been granted
+            fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location : Location? ->
+                        // Got last known location. In some rare situations this can be null.
+                        location?.apply {
+                            Log.d(TAG, "lat: "+ latitude + "lon: " + longitude)
+                            setupWeatherByCoordDetailObserver(latitude, longitude)
+                            ViewUtils.hideKeyboard(this@MainActivity)
+                        }
+                    }
         }
 
         WeatherApplication.appComponent.inject(this)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 
         searchCity.setOnClickListener {
@@ -83,17 +94,39 @@ class MainActivity : AppCompatActivity() {
             val cityName = city.input_field.text.toString()
             setupForecastObserver(cityName)
         }
+    }
 
-        fusedLocationClient.lastLocation
-                .addOnSuccessListener { location : Location? ->
-                    // Got last known location. In some rare situations this can be null.
-                    location?.apply {
-                        Log.d(TAG, "lat: "+ latitude + "lon: " + longitude)
-                        setupWeatherByCoordDetailObserver(latitude, longitude)
-                        ViewUtils.hideKeyboard(this@MainActivity)
-                    }
+    @SuppressLint("MissingPermission")
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            123 -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    fusedLocationClient.lastLocation
+                            .addOnSuccessListener { location : Location? ->
+                                // Got last known location. In some rare situations this can be null.
+                                location?.apply {
+                                    Log.d(TAG, "lat: "+ latitude + "lon: " + longitude)
+                                    setupWeatherByCoordDetailObserver(latitude, longitude)
+                                    ViewUtils.hideKeyboard(this@MainActivity)
+                                }
+                            }
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
                 }
+                return
+            }
 
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
     }
 
     private val locationListener: LocationListener = object : LocationListener {
