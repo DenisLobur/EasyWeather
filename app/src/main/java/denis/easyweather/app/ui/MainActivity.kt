@@ -89,6 +89,8 @@ class MainActivity : AppCompatActivity() {
                     // Got last known location. In some rare situations this can be null.
                     location?.apply {
                         Log.d(TAG, "lat: "+ latitude + "lon: " + longitude)
+                        setupWeatherByCoordDetailObserver(latitude, longitude)
+                        ViewUtils.hideKeyboard(this@MainActivity)
                     }
                 }
 
@@ -123,6 +125,38 @@ class MainActivity : AppCompatActivity() {
                     weatherImg.setImageResource(mapDescrToIcon(descrId))
                     sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunrise, TimeZone.getDefault().getDisplayName()))
                     sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault().getDisplayName()))
+                    currentCity.text = weatherResponse?.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
+
+                    viewModel.getUVData(weatherResponse.coord?.latitude.toString(), weatherResponse.coord?.longitude.toString())
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({
+                                val uv = uv_widget
+                                uv.setUv(it.value!!)
+                            }, {throwable2 -> Log.d(TAG, throwable2.message)})
+                }, { throwable -> Log.d(TAG, throwable.message) })
+    }
+
+    private fun setupWeatherByCoordDetailObserver(latitude: Double, longitude: Double): Disposable? {
+        return viewModel.getWeatherByCoord(latitude, longitude)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ weatherResponse: WeatherDetailsDTO? ->
+                    mainTemp.text = getString(R.string.main_temp,
+                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.temp).toString())
+                    minmaxTemp.text = getString(R.string.min_max_temp,
+                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMin).toString(),
+                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMax).toString())
+                    pressureValue.text = getString(R.string.pressure_value, weatherResponse?.main?.pressure!!.toString())
+                    humidityValue.text = getString(R.string.humidity_value, weatherResponse?.main?.humidity!!.toString())
+                    cloudsValue.text = getString(R.string.clouds_value, weatherResponse?.clouds?.all!!.toString())
+                    windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse?.wind.deg!!))
+                    description.text = weatherResponse?.weatherEntryList?.get(0)?.description
+                    val descrId = weatherResponse?.weatherEntryList?.get(0)?.id
+                    weatherImg.setImageResource(mapDescrToIcon(descrId))
+                    sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunrise, TimeZone.getDefault().getDisplayName()))
+                    sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault().getDisplayName()))
+                    currentCity.text = weatherResponse?.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
 
                     viewModel.getUVData(weatherResponse.coord?.latitude.toString(), weatherResponse.coord?.longitude.toString())
                             .subscribeOn(Schedulers.io())

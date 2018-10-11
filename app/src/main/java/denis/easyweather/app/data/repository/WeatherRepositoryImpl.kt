@@ -31,6 +31,13 @@ class WeatherRepositoryImpl @Inject constructor(
                 }
     }
 
+    override fun getWeatherByCoord(latitude: Double, longitude: Double): Single<WeatherDetailsDTO> {
+        return remoteWeatherDataSource.requestWeatherForCityByCoordinates(latitude.toString(), longitude.toString())
+                .map { weatherResponse: WeatherResponse ->
+                    TransformersDTO.transformToWeatherDetailsDTO("", weatherResponse)
+                }
+    }
+
     override fun getFiveDaysForecast(cityName: String): Single<ForecastDTO> {
         return remoteWeatherDataSource.requestFiveDaysForecastForCityByName(cityName)
                 .map { forecastREsponse: ForecastResponse ->

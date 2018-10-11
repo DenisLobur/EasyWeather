@@ -9,7 +9,8 @@ data class WeatherResponse(
         val wind: Wind,
         val weather: List<WeatherEntry>,
         val dt_txt: String,
-        val sys: Sys
+        val sys: Sys,
+        val name: String
 )
 
 data class Coord(val lon: Double, val lat: Double)

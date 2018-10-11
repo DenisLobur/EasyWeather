@@ -14,6 +14,8 @@ interface WeatherRepository {
 
     fun getWeather(cityName: String): Single<WeatherDetailsDTO>
 
+    fun getWeatherByCoord(latitude: Double, longitude: Double): Single<WeatherDetailsDTO>
+
     fun getFiveDaysForecast(cityName: String): Single<ForecastDTO>
 
     fun addCity(cityName: String)

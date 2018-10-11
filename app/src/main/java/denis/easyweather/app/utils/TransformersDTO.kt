@@ -19,10 +19,10 @@ object TransformersDTO {
         }
         val dt_txt = weatherResponse?.dt_txt
         val sys = SysDTO(weatherResponse?.sys?.country, weatherResponse?.sys?.sunrise, weatherResponse?.sys?.sunset)
-
+        val name = if (cityName.isEmpty()) weatherResponse?.name!! else cityName
         return WeatherDetailsDTO(
                 dt = dt,
-                cityName = cityName,
+                cityName = name,
                 coord = coord,
                 main = main,
                 clouds = clouds,
