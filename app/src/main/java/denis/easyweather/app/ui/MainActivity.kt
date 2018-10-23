@@ -11,6 +11,8 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -94,6 +96,24 @@ class MainActivity : AppCompatActivity() {
             val cityName = city.input_field.text.toString()
             setupForecastObserver(cityName)
         }
+        
+        city.input_field.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if(p0!!.length == 0) {
+                    city.setError(null)
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0!!.length != 0) {
+                    city.setError(null)
+                }
+            }
+        })
     }
 
     @SuppressLint("MissingPermission")
@@ -139,11 +159,12 @@ class MainActivity : AppCompatActivity() {
         override fun onProviderDisabled(provider: String) {}
     }
 
-    private fun setupWeatherDetailObserver(city: String): Disposable? {
-        return viewModel.getWeather(city)
+    private fun setupWeatherDetailObserver(cityName: String): Disposable? {
+        return viewModel.getWeather(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ weatherResponse: WeatherDetailsDTO? ->
+                    city.setError(null)
                     mainTemp.text = getString(R.string.main_temp,
                             StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.temp).toString())
                     minmaxTemp.text = getString(R.string.min_max_temp,
@@ -167,7 +188,11 @@ class MainActivity : AppCompatActivity() {
                                 val uv = uv_widget
                                 uv.setUv(it.value!!)
                             }, {throwable2 -> Log.d(TAG, throwable2.message)})
-                }, { throwable -> Log.d(TAG, throwable.message) })
+                }, {
+                    throwable -> Log.d(TAG, throwable.message)
+                    //TODO: show error
+                    city.setError("Not found. Try another city")
+                })
     }
 
     private fun setupWeatherByCoordDetailObserver(latitude: Double, longitude: Double): Disposable? {
