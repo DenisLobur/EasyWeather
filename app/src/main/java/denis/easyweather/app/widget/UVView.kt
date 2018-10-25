@@ -34,43 +34,15 @@ class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     }
 
     init {
-        paintGreenCircle = Paint().apply {
-            color = Color.GREEN
-            style = Paint.Style.STROKE
-            strokeWidth = 5F
-        }
-
-        paintYellowCircle = Paint().apply {
-            color = Color.YELLOW
-            style = Paint.Style.STROKE
-            strokeWidth = 5F
-        }
-
-        paintOrangeCircle = Paint().apply {
-            color = resources.getColor(R.color.orange)
-            style = Paint.Style.STROKE
-            strokeWidth = 5F
-        }
-
-        paintRedCircle = Paint().apply {
-            color = Color.RED
-            style = Paint.Style.STROKE
-            strokeWidth = 5F
-        }
+        paintGreenCircle = initPaint(Color.GREEN, 15F)
+        paintYellowCircle = initPaint(Color.YELLOW, 15F)
+        paintOrangeCircle = initPaint(resources.getColor(R.color.orange), 15F)
+        paintRedCircle = initPaint(Color.RED, 15F)
 
         oval = RectF()
 
-        paintArrow = Paint().apply {
-            color = Color.BLUE
-            style = Paint.Style.STROKE
-            strokeWidth = 5F
-        }
-
-        paintPoint = Paint().apply {
-            color = Color.RED
-            style = Paint.Style.STROKE
-            strokeWidth = 20F
-        }
+        paintArrow = initPaint(Color.BLUE, 5F)
+        paintPoint = initPaint(Color.RED, 20F)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -78,8 +50,8 @@ class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
         xMiddle = w / 2F
         yMiddle = h / 2F
-        xCoord = (xMiddle + 40 * sin(3.14)).toFloat()
-        yCoord = (yMiddle + 40 * cos(3.14)).toFloat()
+        xCoord = (xMiddle + 40 * sin(Math.PI)).toFloat()
+        yCoord = (yMiddle + 40 * cos(Math.PI)).toFloat()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -87,16 +59,16 @@ class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
         canvas.apply {
             oval.apply {
-                left = 0f
-                top = 0f
-                right = width+1f
-                bottom = height+1f
+                left = 5f
+                top = 5f
+                right = width - 5f
+                bottom = height - 5f
             }
 
-            drawArc(oval, 120F, 54F, false, paintGreenCircle)
-            drawArc(oval, 234F, 54F, false, paintYellowCircle)
-            drawArc(oval, 288F, 36F, false, paintOrangeCircle)
-            drawArc(oval, 324F, 36F, false, paintRedCircle)
+            drawArc(oval, 120F, 90F, false, paintGreenCircle)
+            drawArc(oval, 210F, 90F, false, paintYellowCircle)
+            drawArc(oval, 300F, 60F, false, paintOrangeCircle)
+            drawArc(oval, 360F, 60F, false, paintRedCircle)
 
             val xStop = getEndPointArrow(uvVal).first
             val yStop = getEndPointArrow(uvVal).second
@@ -107,14 +79,24 @@ class UVView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     }
 
     private fun getEndPointArrow(uvValue: Float): Pair<Float, Float> {
-        val ex = uvValue * 18 // degrees per one UV value
+        val ex = uvValue * 30 // degrees per one UV value
         val radius = 100
 
-        val theta = (270 - ex) * PI / 180
+        val theta = (330 - ex) * PI / 180
         val xEnd = (xMiddle + radius * sin(theta)).toFloat()
         val yEnd = (yMiddle + radius * cos(theta)).toFloat()
 
         return Pair(xEnd, yEnd)
+    }
+
+    private fun initPaint(clr: Int, strWidth: Float): Paint {
+        val paint = Paint()
+        paint.apply {
+            color = clr
+            style = Paint.Style.STROKE
+            strokeWidth = strWidth
+        }
+        return paint
     }
 
     companion object {
