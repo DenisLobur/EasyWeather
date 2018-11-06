@@ -10,13 +10,13 @@ import javax.inject.Inject
 class RemoteWeatherDataSource @Inject constructor(private val remoteWeatherService: RemoteWeatherService) {
 
     fun requestWeatherForCityByCoordinates(latitude: String, longitude: String): Single<WeatherResponse> =
-            remoteWeatherService.requestWeatherForCityByCoordinates(latitude, longitude, "99d2ca8d62e1b1b71672f3e69b573710", "metric")
+            remoteWeatherService.requestWeatherForCityByCoordinates(latitude, longitude, "99d2ca8d62e1b1b71672f3e69b573710", "imperial")
 
     fun requestWeatherForCityByName(cityName: String): Single<WeatherResponse> =
-            remoteWeatherService.requestWeatherForCityByName(cityName, "99d2ca8d62e1b1b71672f3e69b573710", "metric")
+            remoteWeatherService.requestWeatherForCityByName(cityName, "99d2ca8d62e1b1b71672f3e69b573710", "imperial")
 
     fun requestFiveDaysForecastForCityByName(cityName: String): Single<ForecastResponse> =
-            remoteWeatherService.requestFiveDaysForecastForCityByName(cityName, "99d2ca8d62e1b1b71672f3e69b573710", "metric")
+            remoteWeatherService.requestFiveDaysForecastForCityByName(cityName, "99d2ca8d62e1b1b71672f3e69b573710", "imperial")
 
     fun requestUVDataByCoordinates(latitude: String, longitude: String): Single<UVResponse> =
             remoteWeatherService.requestUVDataByCoordinates("99d2ca8d62e1b1b71672f3e69b573710", latitude, longitude)
