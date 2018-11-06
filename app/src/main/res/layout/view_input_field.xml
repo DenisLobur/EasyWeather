@@ -10,7 +10,7 @@
       style="@style/InputFieldLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="5dp"
+      android:layout_marginBottom="2dp"
       android:text="@string/city_name"/>
 
     <denis.easyweather.app.widget.EditTextWithClean
@@ -25,7 +25,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="sans-serif-light"
-      android:lineSpacingExtra="19sp"
+      android:lineSpacingExtra="10sp"
       android:layout_marginTop="2dp"
       android:textColor="@color/input_field_error_color"
       android:textSize="12sp"
