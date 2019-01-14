@@ -29,40 +29,19 @@
           android:textColor="@color/black"
           />
 
-        <FrameLayout
-          android:layout_width="match_parent"
-          android:layout_height="200dp"
-          android:clipChildren="false">
-
-            <me.panpf.swsv.SpiderWebScoreView
-              android:id="@+id/spiderWebTemp"
-              android:layout_width="150dp"
-              android:layout_height="1500dp"
-              android:layout_gravity="center"/>
-
-            <me.panpf.swsv.CircularLayout
-              android:id="@+id/circularTemp"
-              android:layout_width="150dp"
-              android:layout_height="150dp"
-              android:layout_gravity="center"
-              android:clipChildren="false"/>
-        </FrameLayout>
-
-        <com.androidplot.xy.XYPlot
-          style="@style/APDefacto.Dark"
-          app:backgroundColor="@color/white"
-          app:graphBackgroundColor="@color/white"
-          app:background="@color/white"
-          android:id="@+id/plot"
-          android:layout_width="fill_parent"
-          android:layout_height="fill_parent"
-          app:title="A Simple XY Plot"
-          app:rangeTitle="range"
-          app:domainTitle="domain"
-          app:lineLabels="left|bottom"
-          app:lineLabelRotationBottom="-45"/>
-
-
+        <!--<com.androidplot.xy.XYPlot-->
+        <!--style="@style/APDefacto.Dark"-->
+        <!--app:backgroundColor="@color/white"-->
+        <!--app:graphBackgroundColor="@color/white"-->
+        <!--app:background="@color/white"-->
+        <!--android:id="@+id/plot"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--app:title="A Simple XY Plot"-->
+        <!--app:rangeTitle="range"-->
+        <!--app:domainTitle="domain"-->
+        <!--app:lineLabels="left|bottom"-->
+        <!--app:lineLabelRotationBottom="-45"/>-->
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

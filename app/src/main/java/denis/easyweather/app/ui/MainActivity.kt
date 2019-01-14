@@ -12,8 +12,10 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
+import android.view.WindowManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import denis.easyweather.app.R
@@ -45,6 +47,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         if (ContextCompat.checkSelfPermission(this,
@@ -88,14 +93,8 @@ class MainActivity : AppCompatActivity() {
         searchCity.setOnClickListener {
             val cityName = city.input_field.text.toString()
             setupWeatherDetailObserver(cityName)
-            setupForecastObserver(cityName)
             ViewUtils.hideKeyboard(this)
         }
-
-//        fiveDaysBtn.setOnClickListener {
-//            val cityName = city.input_field.text.toString()
-//            setupForecastObserver(cityName)
-//        }
         
         city.input_field.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -181,13 +180,7 @@ class MainActivity : AppCompatActivity() {
                     sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault()))
                     currentCity.text = weatherResponse?.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
 
-//                    viewModel.getUVData(weatherResponse.coord?.latitude.toString(), weatherResponse.coord?.longitude.toString())
-//                            .subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe({
-//                                val uv = uv_widget
-//                                uv.setUv(it.value!!)
-//                            }, {throwable2 -> Log.d(TAG, throwable2.message)})
+                    setupForecastObserver(cityName)
                 }, {
                     throwable -> Log.d(TAG, throwable.message)
                     //TODO: show error
@@ -217,13 +210,6 @@ class MainActivity : AppCompatActivity() {
                     currentCity.text = weatherResponse?.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
 
                     setupForecastObserver(weatherResponse?.cityName)
-//                    viewModel.getUVData(weatherResponse.coord?.latitude.toString(), weatherResponse.coord?.longitude.toString())
-//                            .subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe({
-//                                val uv = uv_widget
-//                                uv.setUv(it.value!!)
-//                            }, {throwable2 -> Log.d(TAG, throwable2.message)})
                 }, { throwable -> Log.d(TAG, throwable.message) })
     }
 
@@ -237,6 +223,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fillFiveDaysForecast(forecast: ForecastDTO) {
+        horizontalLayout.removeAllViews()
         var counter = 0
         val firstMidnight = forecast.list.map { it.dt_txt }.indexOfFirst { it!!.endsWith("00:00:00") }
         counter = counter + firstMidnight
@@ -251,15 +238,15 @@ class MainActivity : AppCompatActivity() {
         for (day in days){
             val dayView = this.layoutInflater.inflate(R.layout.item_forecast_day, horizontalLayout, false) as CardView
             dayView.date.text = Util.formatDay(day.map { it.dt_txt!! }.first()) + "\n" + Util.formatMonth(day.map { it.dt_txt!! }.first()).capitalize()
-            dayView.times.text = day.map { it -> it.dt_txt.plus(" ").plus(it.main!!.temp).plus(" ").plus(it.main!!.humidity).plus("\n") }.toString()
-            val tempMinList = FloatArray(8)
-            day.forEachIndexed { index, it ->  tempMinList.set(index, it.main!!.temp!!.toFloat()) }
-            val tempMaxList = FloatArray(8)
-            day.forEachIndexed { index, it ->  tempMaxList.set(index, it.main!!.temp!!.toFloat()) }
-            val tempList = FloatArray(8)
-            day.forEachIndexed { index, it ->  tempList.set(index, it.main!!.temp!!.toFloat()) }
-            //drawTemperature(tempList, dayView.spiderWebTemp, dayView.circularTemp)
-            //drawPlot(dayView.plot, tempMinList, tempMaxList)
+            val tempValuesList = day.map {
+                it -> it.dt_txt!!.split(" ").last().removeSuffix(":00")
+                    .plus(" ")
+                    .plus(StringFormatter.convertFahrenheitToCelsius(it.main!!.temp))
+                    .plus(" ")
+                    .plus(it.main!!.humidity)
+                    .plus("\n") }
+
+            dayView.times.text = TextUtils.join("", tempValuesList)
             horizontalLayout.addView(dayView)
         }
     }

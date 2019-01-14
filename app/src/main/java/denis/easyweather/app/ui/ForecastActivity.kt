@@ -70,9 +70,9 @@ class ForecastActivity : AppCompatActivity() {
             day.forEachIndexed { index, it ->  tempMaxList.set(index, it.main!!.temp!!.toFloat()) }
             val tempList = FloatArray(8)
             day.forEachIndexed { index, it ->  tempList.set(index, it.main!!.temp!!.toFloat()) }
-            drawTemperature(tempList, dayView.spiderWebTemp, dayView.circularTemp)
-            drawPlot(dayView.plot, tempMinList, tempMaxList)
-            horizontalLayout2.addView(dayView)
+            //drawTemperature(tempList, dayView.spiderWebTemp, dayView.circularTemp)
+            //drawPlot(dayView.plot, tempMinList, tempMaxList)
+            //horizontalLayout2.addView(dayView)
         }
     }
 
