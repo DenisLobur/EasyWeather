@@ -61,7 +61,7 @@ class ForecastActivity : AppCompatActivity() {
 
         val days = arrayListOf(firstDay, secondDay, thirdDay, fourthDay, fifthDay, lastDay)
         for (day in days){
-            val dayView = this.layoutInflater.inflate(R.layout.item_forecast_day, horizontalLayout, false) as CardView
+            val dayView = this.layoutInflater.inflate(R.layout.item_forecast_day, horizontalLayout2, false) as CardView
             dayView.date.text = Util.formatDay(day.map { it.dt_txt!! }.first()) + "\n" + Util.formatMonth(day.map { it.dt_txt!! }.first()).capitalize()
             dayView.times.text = day.map { it -> it.dt_txt.plus(" ").plus(it.main!!.temp).plus(" ").plus(it.main!!.humidity).plus("\n") }.toString()
             val tempMinList = FloatArray(8)
@@ -72,7 +72,7 @@ class ForecastActivity : AppCompatActivity() {
             day.forEachIndexed { index, it ->  tempList.set(index, it.main!!.temp!!.toFloat()) }
             drawTemperature(tempList, dayView.spiderWebTemp, dayView.circularTemp)
             drawPlot(dayView.plot, tempMinList, tempMaxList)
-            horizontalLayout.addView(dayView)
+            horizontalLayout2.addView(dayView)
         }
     }
 

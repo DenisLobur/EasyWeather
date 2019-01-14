@@ -98,17 +98,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-          android:id="@+id/fiveDaysBtn"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="5dp"
-          android:background="@color/white"
-          android:gravity="center"
-          android:padding="5dp"
-          android:text="@string/five_days_label"
-          />
-
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -279,21 +268,57 @@
         </LinearLayout>
 
         <LinearLayout
+          android:id="@+id/fiveDaysHolder"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="2dp"
-          android:orientation="horizontal">
+          android:layout_marginTop="5dp"
+          android:orientation="vertical"
+          android:background="@color/white"
+          android:padding="5dp">
 
-            <denis.easyweather.app.widget.UVView
-              android:id="@+id/uv_widget"
-              android:layout_width="120dp"
-              android:layout_height="120dp"
-              android:layout_centerInParent="true"/>
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="5dp"
+              android:text="@string/five_days_label"/>
 
-            <android.support.v7.widget.RecyclerView
-              android:id="@+id/alreadySerchedCities"
+            <View
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
+              android:layout_height="1dp"
+              android:background="@color/background_color"/>
+
+            <HorizontalScrollView
+              android:id="@+id/horizontalScroll"
+              android:layout_width="match_parent"
+              android:layout_height="150dp">
+
+                <LinearLayout
+                  android:id="@+id/horizontalLayout"
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"
+                  android:orientation="horizontal">
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
         </LinearLayout>
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="2dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<denis.easyweather.app.widget.UVView-->
+        <!--android:id="@+id/uv_widget"-->
+        <!--android:layout_width="120dp"-->
+        <!--android:layout_height="120dp"-->
+        <!--android:layout_centerInParent="true"/>-->
+
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/alreadySerchedCities"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+        <!--</LinearLayout>-->
     </LinearLayout>
 </ScrollView>
