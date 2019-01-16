@@ -16,13 +16,12 @@
           android:layout_height="wrap_content"
           android:layout_marginEnd="29dp"
           android:layout_marginStart="29dp"
-          android:layout_marginTop="5dp"
+          android:layout_marginTop="10dp"
           android:imeOptions="actionNext"
           android:inputType="text"
           app:hint="@string/city_hint"
-          app:label="@string/city_label"
           app:showError="true"
-          app:showLabel="true"/>
+          app:showLabel="false"/>
 
         <RelativeLayout
           android:layout_width="match_parent"
@@ -45,7 +44,7 @@
               android:layout_alignParentEnd="true"
               android:layout_marginEnd="10dp"
               android:gravity="center"
-              android:textColor="@color/rg_gold"
+              android:textColor="@color/black"
               android:textSize="16sp"/>
         </RelativeLayout>
 
@@ -228,6 +227,7 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
+              android:layout_marginBottom="5dp"
               android:orientation="vertical">
 
                 <TextView
@@ -249,6 +249,7 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
+              android:layout_marginBottom="5dp"
               android:orientation="vertical">
 
                 <TextView
@@ -273,8 +274,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:orientation="vertical"
-          android:background="@color/white"
-          android:padding="5dp">
+          android:background="@color/white">
 
             <TextView
               android:layout_width="wrap_content"

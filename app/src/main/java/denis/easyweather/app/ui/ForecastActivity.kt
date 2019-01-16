@@ -63,7 +63,7 @@ class ForecastActivity : AppCompatActivity() {
         for (day in days){
             val dayView = this.layoutInflater.inflate(R.layout.item_forecast_day, horizontalLayout2, false) as CardView
             dayView.date.text = Util.formatDay(day.map { it.dt_txt!! }.first()) + "\n" + Util.formatMonth(day.map { it.dt_txt!! }.first()).capitalize()
-            dayView.times.text = day.map { it -> it.dt_txt.plus(" ").plus(it.main!!.temp).plus(" ").plus(it.main!!.humidity).plus("\n") }.toString()
+            //dayView.time.text = day.map { it -> it.dt_txt.plus(" ").plus(it.main!!.temp).plus(" ").plus(it.main!!.humidity).plus("\n") }.toString()
             val tempMinList = FloatArray(8)
             day.forEachIndexed { index, it ->  tempMinList.set(index, it.main!!.temp!!.toFloat()) }
             val tempMaxList = FloatArray(8)

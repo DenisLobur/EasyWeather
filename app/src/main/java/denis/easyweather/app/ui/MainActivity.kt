@@ -12,10 +12,10 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.WindowManager
+import android.widget.TextView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import denis.easyweather.app.R
@@ -238,6 +238,7 @@ class MainActivity : AppCompatActivity() {
         for (day in days){
             val dayView = this.layoutInflater.inflate(R.layout.item_forecast_day, horizontalLayout, false) as CardView
             dayView.date.text = Util.formatDay(day.map { it.dt_txt!! }.first()) + "\n" + Util.formatMonth(day.map { it.dt_txt!! }.first()).capitalize()
+
             val tempValuesList = day.map {
                 it -> it.dt_txt!!.split(" ").last().removeSuffix(":00")
                     .plus(" ")
@@ -246,7 +247,15 @@ class MainActivity : AppCompatActivity() {
                     .plus(it.main!!.humidity)
                     .plus("\n") }
 
-            dayView.times.text = TextUtils.join("", tempValuesList)
+            for(tt in tempValuesList) {
+                val tv = TextView(this)
+                tv.setText(tt)
+                dayView.temp_widget.addView(tv)
+            }
+
+            //dayView.time.text = TextUtils.join("", tempValuesList)
+            //dayView.negative_temp
+            //dayView.positive_temp
             horizontalLayout.addView(dayView)
         }
     }
