@@ -6,11 +6,33 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import denis.easyweather.app.R
 
-class TemperatureBarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : View(context, attrs, defStyle) {
+class TemperatureBarView : View {
 
     private var bluePaint: Paint
     private var redPaint: Paint
+    private var positiveBarLength: Double = 0.0
+
+    constructor(context: Context) : super(context) {
+        setup(context, null)
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        setup(context, attrs)
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        setup(context, attrs)
+    }
+
+    private fun setup(context: Context, attrs: AttributeSet?) {
+        if (attrs != null) {
+            val attributes = context.obtainStyledAttributes(attrs, R.styleable.TemperatureBarViewStyle)
+            positiveBarLength = attributes.getFloat(R.styleable.TemperatureBarViewStyle_barValue, 0F).toDouble()
+            attributes.recycle()
+        }
+    }
 
     init {
         bluePaint = initPaint(Color.BLUE, 20F)
@@ -25,8 +47,12 @@ class TemperatureBarView @JvmOverloads constructor(context: Context, attrs: Attr
         super.onDraw(canvas)
 
         canvas.apply {
-            drawLine(0F,0F, 10F, 10F, bluePaint)
+            drawLine(0F, 0F, positiveBarLength.toFloat(), positiveBarLength.toFloat(), bluePaint)
         }
+    }
+
+    fun setBarValue(value: Double){
+        positiveBarLength = value
     }
 
     private fun initPaint(clr: Int, strWidth: Float): Paint {

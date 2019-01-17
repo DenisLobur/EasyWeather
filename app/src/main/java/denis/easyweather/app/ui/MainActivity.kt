@@ -11,11 +11,11 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.WindowManager
-import android.widget.TextView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import denis.easyweather.app.R
@@ -235,23 +235,33 @@ class MainActivity : AppCompatActivity() {
         val lastDay = forecast.list.subList(counter + 32, forecast.list.size)
 
         val days = arrayListOf(firstDay, secondDay, thirdDay, fourthDay, fifthDay, lastDay)
+
         for (day in days){
             val dayView = this.layoutInflater.inflate(R.layout.item_forecast_day, horizontalLayout, false) as CardView
             dayView.date.text = Util.formatDay(day.map { it.dt_txt!! }.first()) + "\n" + Util.formatMonth(day.map { it.dt_txt!! }.first()).capitalize()
 
-            val tempValuesList = day.map {
-                it -> it.dt_txt!!.split(" ").last().removeSuffix(":00")
-                    .plus(" ")
-                    .plus(StringFormatter.convertFahrenheitToCelsius(it.main!!.temp))
-                    .plus(" ")
-                    .plus(it.main!!.humidity)
-                    .plus("\n") }
+            val tempValuesList: List<TimeToTemperature> = day.map {
+                it -> TimeToTemperature(it.dt_txt!!.split(" ").last().removeSuffix(":00"), it.main!!.tempMin!!, it.main!!.tempMin!!) }
+//                    .plus(" ")
+//                    .plus(StringFormatter.convertFahrenheitToCelsius(it.main!!.temp))
+//                    .plus(" ")
+//                    .plus(it.main!!.humidity)
+//                    .plus("\n") }
 
-            for(tt in tempValuesList) {
-                val tv = TextView(this)
-                tv.setText(tt)
-                dayView.temp_widget.addView(tv)
-            }
+            dayView.timeTempList.adapter = TempAdapter(this, tempValuesList)
+            dayView.timeTempList.layoutManager = LinearLayoutManager(this)
+
+
+//            for(tt in tempValuesList) {
+//                val tv = TextView(this)
+//                tv.setText(tt)
+//                val bar = TemperatureBarView(this)
+//                val timeAndTempHolder = LinearLayout(this)
+//                timeAndTempHolder.orientation = LinearLayout.HORIZONTAL
+//                timeAndTempHolder.addView(tv, 0)
+//                timeAndTempHolder.addView(bar, 1)
+                //dayView.date.addView(timeAndTempHolder)
+//            }
 
             //dayView.time.text = TextUtils.join("", tempValuesList)
             //dayView.negative_temp

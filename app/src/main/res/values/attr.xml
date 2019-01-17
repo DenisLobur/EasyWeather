@@ -15,4 +15,8 @@
     <declare-styleable name="UVView">
         <attr name="uvValue" format="float"/>
     </declare-styleable>
+
+    <declare-styleable name="TemperatureBarViewStyle">
+        <attr name="barValue" format="float"/>
+    </declare-styleable>
 </resources>
