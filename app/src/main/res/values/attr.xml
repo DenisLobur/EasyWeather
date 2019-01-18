@@ -17,6 +17,6 @@
     </declare-styleable>
 
     <declare-styleable name="TemperatureBarViewStyle">
-        <attr name="barValue" format="float"/>
+        <attr name="barValue" format="integer"/>
     </declare-styleable>
 </resources>

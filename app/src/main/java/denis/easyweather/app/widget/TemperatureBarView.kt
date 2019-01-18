@@ -12,7 +12,7 @@ class TemperatureBarView : View {
 
     private var bluePaint: Paint
     private var redPaint: Paint
-    private var positiveBarLength: Double = 0.0
+    private var barLength: Int = 0
 
     constructor(context: Context) : super(context) {
         setup(context, null)
@@ -29,14 +29,14 @@ class TemperatureBarView : View {
     private fun setup(context: Context, attrs: AttributeSet?) {
         if (attrs != null) {
             val attributes = context.obtainStyledAttributes(attrs, R.styleable.TemperatureBarViewStyle)
-            positiveBarLength = attributes.getFloat(R.styleable.TemperatureBarViewStyle_barValue, 0F).toDouble()
+            barLength = attributes.getInt(R.styleable.TemperatureBarViewStyle_barValue, 0)
             attributes.recycle()
         }
     }
 
     init {
-        bluePaint = initPaint(Color.BLUE, 20F)
-        redPaint = initPaint(Color.RED, 20F)
+        bluePaint = initPaint(Color.BLUE, 40F)
+        redPaint = initPaint(Color.RED, 40F)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -47,12 +47,14 @@ class TemperatureBarView : View {
         super.onDraw(canvas)
 
         canvas.apply {
-            drawLine(0F, 0F, positiveBarLength.toFloat(), positiveBarLength.toFloat(), bluePaint)
+            val tempPaint = if(barLength > 0) redPaint else bluePaint
+            drawLine(0F, height/2.toFloat(), Math.abs(barLength.toFloat()), height/2.toFloat(), tempPaint)
+
         }
     }
 
-    fun setBarValue(value: Double){
-        positiveBarLength = value
+    fun setBarValue(value: Int){
+        barLength = value
     }
 
     private fun initPaint(clr: Int, strWidth: Float): Paint {

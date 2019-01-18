@@ -76,10 +76,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             // Permission has already been granted
             fusedLocationClient.lastLocation
-                    .addOnSuccessListener { location : Location? ->
+                    .addOnSuccessListener { location: Location? ->
                         // Got last known location. In some rare situations this can be null.
                         location?.apply {
-                            Log.d(TAG, "lat: "+ latitude + "lon: " + longitude)
+                            Log.d(TAG, "lat: " + latitude + "lon: " + longitude)
                             setupWeatherByCoordDetailObserver(latitude, longitude)
                             ViewUtils.hideKeyboard(this@MainActivity)
                         }
@@ -95,10 +95,10 @@ class MainActivity : AppCompatActivity() {
             setupWeatherDetailObserver(cityName)
             ViewUtils.hideKeyboard(this)
         }
-        
+
         city.input_field.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if(p0!!.length == 0) {
+                if (p0!!.length == 0) {
                     city.setError(null)
                 }
             }
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0!!.length != 0) {
+                if (p0!!.length != 0) {
                     city.setError(null)
                 }
             }
@@ -125,10 +125,10 @@ class MainActivity : AppCompatActivity() {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                     fusedLocationClient.lastLocation
-                            .addOnSuccessListener { location : Location? ->
+                            .addOnSuccessListener { location: Location? ->
                                 // Got last known location. In some rare situations this can be null.
                                 location?.apply {
-                                    Log.d(TAG, "lat: "+ latitude + "lon: " + longitude)
+                                    Log.d(TAG, "lat: " + latitude + "lon: " + longitude)
                                     setupWeatherByCoordDetailObserver(latitude, longitude)
                                     ViewUtils.hideKeyboard(this@MainActivity)
                                 }
@@ -170,19 +170,19 @@ class MainActivity : AppCompatActivity() {
                             StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMin).toString(),
                             StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMax).toString())
                     pressureValue.text = getString(R.string.pressure_value, weatherResponse?.main?.pressure!!.toString())
-                    humidityValue.text = getString(R.string.humidity_value, weatherResponse?.main?.humidity!!.toString())
-                    cloudsValue.text = getString(R.string.clouds_value, weatherResponse?.clouds?.all!!.toString())
-                    windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse?.wind.deg!!))
-                    description.text = weatherResponse?.weatherEntryList?.get(0)?.description
-                    val descrId = weatherResponse?.weatherEntryList?.get(0)?.id
+                    humidityValue.text = getString(R.string.humidity_value, weatherResponse.main.humidity!!.toString())
+                    cloudsValue.text = getString(R.string.clouds_value, weatherResponse.clouds?.all!!.toString())
+                    windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse.wind.deg!!))
+                    description.text = weatherResponse.weatherEntryList?.get(0)?.description
+                    val descrId = weatherResponse.weatherEntryList?.get(0)?.id
                     weatherImg.setImageResource(mapDescrToIcon(descrId))
-                    sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunrise, TimeZone.getDefault()))
-                    sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault()))
-                    currentCity.text = weatherResponse?.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
+                    sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse.sys?.sunrise, TimeZone.getDefault()))
+                    sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse.sys?.sunset, TimeZone.getDefault()))
+                    currentCity.text = weatherResponse.cityName + ", " + weatherResponse.sys?.country?.toUpperCase()
 
                     setupForecastObserver(cityName)
-                }, {
-                    throwable -> Log.d(TAG, throwable.message)
+                }, { throwable ->
+                    Log.d(TAG, throwable.message)
                     //TODO: show error
                     city.setError("Not found. Try another city")
                 })
@@ -199,17 +199,17 @@ class MainActivity : AppCompatActivity() {
                             StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMin).toString(),
                             StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMax).toString())
                     pressureValue.text = getString(R.string.pressure_value, weatherResponse?.main?.pressure!!.toString())
-                    humidityValue.text = getString(R.string.humidity_value, weatherResponse?.main?.humidity!!.toString())
-                    cloudsValue.text = getString(R.string.clouds_value, weatherResponse?.clouds?.all!!.toString())
-                    windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse?.wind.deg!!))
-                    description.text = weatherResponse?.weatherEntryList?.get(0)?.description
-                    val descrId = weatherResponse?.weatherEntryList?.get(0)?.id
+                    humidityValue.text = getString(R.string.humidity_value, weatherResponse.main.humidity!!.toString())
+                    cloudsValue.text = getString(R.string.clouds_value, weatherResponse.clouds?.all!!.toString())
+                    windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse.wind.deg!!))
+                    description.text = weatherResponse.weatherEntryList?.get(0)?.description
+                    val descrId = weatherResponse.weatherEntryList?.get(0)?.id
                     weatherImg.setImageResource(mapDescrToIcon(descrId))
-                    sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunrise, TimeZone.getDefault()))
+                    sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse.sys?.sunrise, TimeZone.getDefault()))
                     sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault()))
-                    currentCity.text = weatherResponse?.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
+                    currentCity.text = weatherResponse.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
 
-                    setupForecastObserver(weatherResponse?.cityName)
+                    setupForecastObserver(weatherResponse.cityName)
                 }, { throwable -> Log.d(TAG, throwable.message) })
     }
 
@@ -236,12 +236,16 @@ class MainActivity : AppCompatActivity() {
 
         val days = arrayListOf(firstDay, secondDay, thirdDay, fourthDay, fifthDay, lastDay)
 
-        for (day in days){
+        for (day in days) {
             val dayView = this.layoutInflater.inflate(R.layout.item_forecast_day, horizontalLayout, false) as CardView
             dayView.date.text = Util.formatDay(day.map { it.dt_txt!! }.first()) + "\n" + Util.formatMonth(day.map { it.dt_txt!! }.first()).capitalize()
 
-            val tempValuesList: List<TimeToTemperature> = day.map {
-                it -> TimeToTemperature(it.dt_txt!!.split(" ").last().removeSuffix(":00"), it.main!!.tempMin!!, it.main!!.tempMin!!) }
+            val tempValuesList: List<TimeToTemperature> = day.map { it ->
+                TimeToTemperature(
+                        it.dt_txt!!.split(" ").last().removeSuffix(":00"),
+                        StringFormatter.convertFahrenheitToCelsius(it.main!!.temp!!)
+                )
+            }
 //                    .plus(" ")
 //                    .plus(StringFormatter.convertFahrenheitToCelsius(it.main!!.temp))
 //                    .plus(" ")
@@ -260,7 +264,7 @@ class MainActivity : AppCompatActivity() {
 //                timeAndTempHolder.orientation = LinearLayout.HORIZONTAL
 //                timeAndTempHolder.addView(tv, 0)
 //                timeAndTempHolder.addView(bar, 1)
-                //dayView.date.addView(timeAndTempHolder)
+            //dayView.date.addView(timeAndTempHolder)
 //            }
 
             //dayView.time.text = TextUtils.join("", tempValuesList)
@@ -273,11 +277,11 @@ class MainActivity : AppCompatActivity() {
     private fun mapDescrToIcon(descrId: Int?): Int {
 
         val icon = when (descrId) {
-            in (200 .. 232) -> R.drawable.ic_thunderstorm
-            in (300 .. 321) -> R.drawable.ic_rain
-            in (500 .. 531) -> R.drawable.ic_rain
-            in (600 .. 622) -> R.drawable.ic_snow
-            in (701 .. 781) -> R.drawable.ic_mist
+            in (200..232) -> R.drawable.ic_thunderstorm
+            in (300..321) -> R.drawable.ic_rain
+            in (500..531) -> R.drawable.ic_rain
+            in (600..622) -> R.drawable.ic_snow
+            in (701..781) -> R.drawable.ic_mist
             800 -> R.drawable.ic_clear_sky
             801 -> R.drawable.ic_few_clouds
             802 -> R.drawable.ic_scattered_clouds

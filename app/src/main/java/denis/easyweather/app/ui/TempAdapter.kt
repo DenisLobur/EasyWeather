@@ -25,12 +25,12 @@ class TempAdapter(val context: Context, val timeToTempList: List<TimeToTemperatu
         holder.bind(item)
     }
 
-    class TimeToTempHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class TimeToTempHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: TimeToTemperature) {
-            itemView.time.text = item.time
-            itemView.negative_temp.setBarValue(item.negTemp)
-            itemView.positive_temp.setBarValue(item.posTemp)
+            itemView.time_value.text = item.time
+            itemView.temperature_bar_value.setBarValue(18 * item.temp)
+            itemView.temperature_value.text = context.getString(R.string.temperature_graph_value, item.temp.toString())
         }
     }
 }

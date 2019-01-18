@@ -24,6 +24,7 @@
         <android.support.v7.widget.RecyclerView
           android:id="@+id/timeTempList"
           android:layout_width="match_parent"
+          android:minHeight="160dp"
           android:layout_height="wrap_content"/>
     </LinearLayout>
 

@@ -226,8 +226,8 @@
             <LinearLayout
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:layout_weight="1"
               android:layout_marginBottom="5dp"
+              android:layout_weight="1"
               android:orientation="vertical">
 
                 <TextView
@@ -248,8 +248,8 @@
             <LinearLayout
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:layout_weight="1"
               android:layout_marginBottom="5dp"
+              android:layout_weight="1"
               android:orientation="vertical">
 
                 <TextView
@@ -273,8 +273,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
-          android:orientation="vertical"
-          android:background="@color/white">
+          android:background="@color/white"
+          android:orientation="vertical">
 
             <TextView
               android:layout_width="wrap_content"
@@ -295,30 +295,11 @@
                 <LinearLayout
                   android:id="@+id/horizontalLayout"
                   android:layout_width="wrap_content"
-                  android:layout_height="match_parent"
+                  android:layout_height="wrap_content"
                   android:orientation="horizontal">
                 </LinearLayout>
 
             </HorizontalScrollView>
-
         </LinearLayout>
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="2dp"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<denis.easyweather.app.widget.UVView-->
-        <!--android:id="@+id/uv_widget"-->
-        <!--android:layout_width="120dp"-->
-        <!--android:layout_height="120dp"-->
-        <!--android:layout_centerInParent="true"/>-->
-
-        <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/alreadySerchedCities"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
-        <!--</LinearLayout>-->
     </LinearLayout>
 </ScrollView>
