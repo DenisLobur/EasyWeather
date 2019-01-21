@@ -31,7 +31,12 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_clouds.view.*
 import kotlinx.android.synthetic.main.item_forecast_day.view.*
+import kotlinx.android.synthetic.main.item_humidity.view.*
+import kotlinx.android.synthetic.main.item_pressure.view.*
+import kotlinx.android.synthetic.main.item_uv.view.*
+import kotlinx.android.synthetic.main.item_wind.view.*
 import kotlinx.android.synthetic.main.view_input_field.view.*
 import java.util.*
 import javax.inject.Inject
@@ -209,6 +214,23 @@ class MainActivity : AppCompatActivity() {
         sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault()))
         currentCity.text = weatherResponse.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
 
+        val pressureView = this.layoutInflater.inflate(R.layout.item_pressure, horizontalLayoutDetails, false) as CardView
+        pressureView.pressure_Value.text = getString(R.string.pressure_value, weatherResponse?.main?.pressure!!.toString())
+        val humidityView = this.layoutInflater.inflate(R.layout.item_humidity, horizontalLayoutDetails, false) as CardView
+        humidityView.humidity_Value.text = getString(R.string.humidity_value, weatherResponse?.main?.humidity!!.toString())
+        val windView = this.layoutInflater.inflate(R.layout.item_wind, horizontalLayoutDetails, false) as CardView
+        windView.wind_Value.text = getString(R.string.wind_value, weatherResponse?.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse.wind.deg!!))
+        val cloudsView = this.layoutInflater.inflate(R.layout.item_clouds, horizontalLayoutDetails, false) as CardView
+        cloudsView.clouds_Value.text = getString(R.string.clouds_value, weatherResponse?.clouds?.all!!.toString())
+        val uvView = this.layoutInflater.inflate(R.layout.item_uv, horizontalLayoutDetails, false) as CardView
+        uvView.uv_Value.text = getString(R.string.uv_value, "in progress")
+        horizontalLayoutDetails.addView(pressureView)
+        horizontalLayoutDetails.addView(humidityView)
+        horizontalLayoutDetails.addView(windView)
+        horizontalLayoutDetails.addView(cloudsView)
+        horizontalLayoutDetails.addView(uvView)
+
+
         setupForecastObserver(weatherResponse.cityName)
     }
 
@@ -245,30 +267,9 @@ class MainActivity : AppCompatActivity() {
                         StringFormatter.convertFahrenheitToCelsius(it.main!!.temp!!)
                 )
             }
-//                    .plus(" ")
-//                    .plus(StringFormatter.convertFahrenheitToCelsius(it.main!!.temp))
-//                    .plus(" ")
-//                    .plus(it.main!!.humidity)
-//                    .plus("\n") }
 
             dayView.timeTempList.adapter = TempAdapter(this, tempValuesList)
             dayView.timeTempList.layoutManager = LinearLayoutManager(this)
-
-
-//            for(tt in tempValuesList) {
-//                val tv = TextView(this)
-//                tv.setText(tt)
-//                val bar = TemperatureBarView(this)
-//                val timeAndTempHolder = LinearLayout(this)
-//                timeAndTempHolder.orientation = LinearLayout.HORIZONTAL
-//                timeAndTempHolder.addView(tv, 0)
-//                timeAndTempHolder.addView(bar, 1)
-            //dayView.date.addView(timeAndTempHolder)
-//            }
-
-            //dayView.time.text = TextUtils.join("", tempValuesList)
-            //dayView.negative_temp
-            //dayView.positive_temp
             horizontalLayout.addView(dayView)
         }
     }

@@ -20,6 +20,8 @@
     <string name="wind">WIND</string>
     <string name="wind_value">%1$s m/s, %2$s</string>
     <string name="clouds">CLOUDS</string>
+    <string name="uv">UV</string>
+    <string name="uv_value">%1$s uv</string>
     <string name="clouds_value"> %1$s %%</string>
     <string name="max_temp">Max. Temperature: %1$s  \u2103</string>
     <string name="min_temp">Min. Temperature: %1$s  \u2103</string>
