@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.os.Bundle
@@ -90,6 +91,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 
+        searchCity.isEnabled = false
         searchCity.setOnClickListener {
             val cityName = city.input_field.text.toString()
             setupWeatherDetailObserver(cityName)
@@ -99,7 +101,10 @@ class MainActivity : AppCompatActivity() {
         city.input_field.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if (p0!!.length == 0) {
+                    searchCity.isEnabled = false
                     city.setError(null)
+                } else {
+                    searchCity.isEnabled = true
                 }
             }
 
@@ -110,6 +115,9 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0!!.length != 0) {
                     city.setError(null)
+                    searchCity.isEnabled = true
+                } else {
+                    searchCity.isEnabled = false
                 }
             }
         })
@@ -164,22 +172,7 @@ class MainActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ weatherResponse: WeatherDetailsDTO? ->
                     city.setError(null)
-                    mainTemp.text = getString(R.string.main_temp,
-                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.temp).toString())
-                    minmaxTemp.text = getString(R.string.min_max_temp,
-                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMin).toString(),
-                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMax).toString())
-                    pressureValue.text = getString(R.string.pressure_value, weatherResponse?.main?.pressure!!.toString())
-                    humidityValue.text = getString(R.string.humidity_value, weatherResponse.main.humidity!!.toString())
-                    cloudsValue.text = getString(R.string.clouds_value, weatherResponse.clouds?.all!!.toString())
-                    windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse.wind.deg!!))
-                    description.text = weatherResponse.weatherEntryList?.get(0)?.description
-                    val descrId = weatherResponse.weatherEntryList?.get(0)?.id
-                    weatherImg.setImageResource(mapDescrToIcon(descrId))
-                    sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse.sys?.sunrise, TimeZone.getDefault()))
-                    sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse.sys?.sunset, TimeZone.getDefault()))
-                    currentCity.text = weatherResponse.cityName + ", " + weatherResponse.sys?.country?.toUpperCase()
-
+                    setWeatherViewsWithData(weatherResponse)
                     setupForecastObserver(cityName)
                 }, { throwable ->
                     Log.d(TAG, throwable.message)
@@ -193,24 +186,30 @@ class MainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ weatherResponse: WeatherDetailsDTO? ->
-                    mainTemp.text = getString(R.string.main_temp,
-                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.temp).toString())
-                    minmaxTemp.text = getString(R.string.min_max_temp,
-                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMin).toString(),
-                            StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMax).toString())
-                    pressureValue.text = getString(R.string.pressure_value, weatherResponse?.main?.pressure!!.toString())
-                    humidityValue.text = getString(R.string.humidity_value, weatherResponse.main.humidity!!.toString())
-                    cloudsValue.text = getString(R.string.clouds_value, weatherResponse.clouds?.all!!.toString())
-                    windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse.wind.deg!!))
-                    description.text = weatherResponse.weatherEntryList?.get(0)?.description
-                    val descrId = weatherResponse.weatherEntryList?.get(0)?.id
-                    weatherImg.setImageResource(mapDescrToIcon(descrId))
-                    sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse.sys?.sunrise, TimeZone.getDefault()))
-                    sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault()))
-                    currentCity.text = weatherResponse.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
-
-                    setupForecastObserver(weatherResponse.cityName)
+                    setWeatherViewsWithData(weatherResponse)
+                    setupForecastObserver(weatherResponse!!.cityName)
                 }, { throwable -> Log.d(TAG, throwable.message) })
+    }
+
+    private fun setWeatherViewsWithData(weatherResponse: WeatherDetailsDTO?) {
+        mainTemp.setTextColor(if (StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.temp!!) > 0) Color.RED else Color.BLUE)
+        mainTemp.text = getString(R.string.main_temp,
+                StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.temp).toString())
+        minmaxTemp.text = getString(R.string.min_max_temp,
+                StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMin).toString(),
+                StringFormatter.convertFahrenheitToCelsius(weatherResponse?.main?.tempMax).toString())
+        pressureValue.text = getString(R.string.pressure_value, weatherResponse?.main?.pressure!!.toString())
+        humidityValue.text = getString(R.string.humidity_value, weatherResponse.main.humidity!!.toString())
+        cloudsValue.text = getString(R.string.clouds_value, weatherResponse.clouds?.all!!.toString())
+        windValue.text = getString(R.string.wind_value, weatherResponse.wind?.speed!!.toString(), StringFormatter.convertAngleToDirection(weatherResponse.wind.deg!!))
+        description.text = weatherResponse.weatherEntryList?.get(0)?.description
+        val descrId = weatherResponse.weatherEntryList?.get(0)?.id
+        weatherImg.setImageResource(mapDescrToIcon(descrId))
+        sunRise.text = getString(R.string.sunrise, StringFormatter.convertTimestampToHourFormat(weatherResponse.sys?.sunrise, TimeZone.getDefault()))
+        sunSet.text = getString(R.string.sunset, StringFormatter.convertTimestampToHourFormat(weatherResponse?.sys?.sunset, TimeZone.getDefault()))
+        currentCity.text = weatherResponse.cityName + ", " + weatherResponse?.sys?.country?.toUpperCase()
+
+        setupForecastObserver(weatherResponse.cityName)
     }
 
     private fun setupForecastObserver(city: String): Disposable? {

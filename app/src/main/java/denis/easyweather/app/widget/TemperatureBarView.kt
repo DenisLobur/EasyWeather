@@ -47,13 +47,14 @@ class TemperatureBarView : View {
         super.onDraw(canvas)
 
         canvas.apply {
-            val tempPaint = if(barLength > 0) redPaint else bluePaint
-            drawLine(0F, height/2.toFloat(), Math.abs(barLength.toFloat()), height/2.toFloat(), tempPaint)
+            val tempPaint = if (barLength > 0) redPaint else bluePaint
+            val tempLength: Float = if (barLength != 0) Math.abs(barLength.toFloat()) else 0.5F
+            drawLine(0F, height / 2.toFloat(), tempLength, height / 2.toFloat(), tempPaint)
 
         }
     }
 
-    fun setBarValue(value: Int){
+    fun setBarValue(value: Int) {
         barLength = value
     }
 
