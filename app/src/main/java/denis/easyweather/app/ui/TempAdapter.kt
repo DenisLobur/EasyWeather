@@ -1,6 +1,7 @@
 package denis.easyweather.app.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,13 @@ class TempAdapter(val context: Context, val timeToTempList: List<TimeToTemperatu
         fun bind(item: TimeToTemperature) {
             itemView.time_value.text = item.time
             itemView.temperature_bar_value.setBarValue(18 * item.temp)
+            if (item.temp > 0) {
+                itemView.temperature_value.setTextColor(Color.RED)
+            } else if (item.temp < 0) {
+                itemView.temperature_value.setTextColor(Color.BLUE)
+            } else {
+                itemView.temperature_value.setTextColor(Color.BLACK)
+            }
             itemView.temperature_value.text = context.getString(R.string.temperature_graph_value, item.temp.toString())
         }
     }
