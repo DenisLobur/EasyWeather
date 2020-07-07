@@ -2,45 +2,35 @@ package denis.easyweather.app.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.arch.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
-import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import denis.easyweather.app.R
 import denis.easyweather.app.common.Util
-import denis.easyweather.app.di.WeatherApplication
 import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.dto.WeatherDetailsDTO
 import denis.easyweather.app.utils.StringFormatter
 import denis.easyweather.app.utils.ViewUtils
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_forecast_day.view.*
 import kotlinx.android.synthetic.main.view_input_field.view.*
 import java.util.*
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: WeatherViewModelFactory
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private lateinit var viewModel: WeatherViewModel
     private val TAG: String = MainActivity::class.java.simpleName
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -87,9 +77,7 @@ class MainActivity : AppCompatActivity() {
                     }
         }
 
-        WeatherApplication.appComponent.inject(this)
-
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
+        //viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherViewModel::class.java)
 
         searchCity.isEnabled = false
         searchCity.setOnClickListener {
@@ -166,29 +154,29 @@ class MainActivity : AppCompatActivity() {
         override fun onProviderDisabled(provider: String) {}
     }
 
-    private fun setupWeatherDetailObserver(cityName: String): Disposable? {
-        return viewModel.getWeather(cityName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ weatherResponse: WeatherDetailsDTO? ->
-                    city.setError(null)
-                    setWeatherViewsWithData(weatherResponse)
-                    setupForecastObserver(cityName)
-                }, { throwable ->
-                    Log.d(TAG, throwable.message)
-                    //TODO: show error
-                    city.setError("Not found. Try another city")
-                })
+    private fun setupWeatherDetailObserver(cityName: String) {
+//        return viewModel.getWeather(cityName)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({ weatherResponse: WeatherDetailsDTO? ->
+//                    city.setError(null)
+//                    setWeatherViewsWithData(weatherResponse)
+//                    setupForecastObserver(cityName)
+//                }, { throwable ->
+//                    Log.d(TAG, throwable.message)
+//                    //TODO: show error
+//                    city.setError("Not found. Try another city")
+//                })
     }
 
-    private fun setupWeatherByCoordDetailObserver(latitude: Double, longitude: Double): Disposable? {
-        return viewModel.getWeatherByCoord(latitude, longitude)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ weatherResponse: WeatherDetailsDTO? ->
-                    setWeatherViewsWithData(weatherResponse)
-                    setupForecastObserver(weatherResponse!!.cityName)
-                }, { throwable -> Log.d(TAG, throwable.message) })
+    private fun setupWeatherByCoordDetailObserver(latitude: Double, longitude: Double) {
+//        return viewModel.getWeatherByCoord(latitude, longitude)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({ weatherResponse: WeatherDetailsDTO? ->
+//                    setWeatherViewsWithData(weatherResponse)
+//                    setupForecastObserver(weatherResponse!!.cityName)
+//                }, { throwable -> Log.d(TAG, throwable.message) })
     }
 
     private fun setWeatherViewsWithData(weatherResponse: WeatherDetailsDTO?) {
@@ -212,13 +200,13 @@ class MainActivity : AppCompatActivity() {
         setupForecastObserver(weatherResponse.cityName)
     }
 
-    private fun setupForecastObserver(city: String): Disposable? {
-        return viewModel.getForecast(city)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ forecastResponse: ForecastDTO? ->
-                    fillFiveDaysForecast(forecastResponse!!)
-                }, { throwable -> Log.d(TAG, throwable.message) })
+    private fun setupForecastObserver(city: String) {
+//        return viewModel.getForecast(city)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({ forecastResponse: ForecastDTO? ->
+//                    fillFiveDaysForecast(forecastResponse!!)
+//                }, { throwable -> Log.d(TAG, throwable.message) })
     }
 
     private fun fillFiveDaysForecast(forecast: ForecastDTO) {

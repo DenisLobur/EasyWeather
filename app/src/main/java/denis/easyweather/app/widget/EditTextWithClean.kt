@@ -7,10 +7,11 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.widget.AppCompatEditText
 import denis.easyweather.app.R
 
 
-class EditTextWithClean : android.support.v7.widget.AppCompatEditText {
+class EditTextWithClean : AppCompatEditText {
 
     private var cleanButtonRes = R.drawable.ic_close_black
 

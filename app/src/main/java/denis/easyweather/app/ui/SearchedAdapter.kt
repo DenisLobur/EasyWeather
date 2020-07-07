@@ -1,9 +1,9 @@
 package denis.easyweather.app.ui
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import denis.easyweather.app.R
 import java.util.*
 

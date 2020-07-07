@@ -10,54 +10,53 @@ import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.dto.UVDTO
 import denis.easyweather.app.dto.WeatherDetailsDTO
 import denis.easyweather.app.utils.TransformersDTO
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
-import javax.inject.Singleton
+import retrofit2.Call
 
-@Singleton
-class WeatherRepositoryImpl @Inject constructor(
+class WeatherRepositoryImpl constructor(
         private val remoteWeatherDataSource: RemoteWeatherDataSource,
         private val roomDataSource: RoomDataSource
 ) : WeatherRepository {
 
-    override fun getWeather(cityName: String): Single<WeatherDetailsDTO> {
+    override fun getWeather(cityName: String): Call<WeatherDetailsDTO>? {
 
-        return remoteWeatherDataSource.requestWeatherForCityByName(cityName)
-                .map { weatherResponse: WeatherResponse ->
-                    TransformersDTO.transformToWeatherDetailsDTO(cityName, weatherResponse)
-                }
+//        return remoteWeatherDataSource.requestWeatherForCityByName(cityName)
+//                .map { weatherResponse: WeatherResponse ->
+//                    TransformersDTO.transformToWeatherDetailsDTO(cityName, weatherResponse)
+//                }
+      return null
     }
 
-    override fun getWeatherByCoord(latitude: Double, longitude: Double): Single<WeatherDetailsDTO> {
-        return remoteWeatherDataSource.requestWeatherForCityByCoordinates(latitude.toString(), longitude.toString())
-                .map { weatherResponse: WeatherResponse ->
-                    TransformersDTO.transformToWeatherDetailsDTO("", weatherResponse)
-                }
+    override fun getWeatherByCoord(latitude: Double, longitude: Double): Call<WeatherDetailsDTO>? {
+//        return remoteWeatherDataSource.requestWeatherForCityByCoordinates(latitude.toString(), longitude.toString())
+//                .map { weatherResponse: WeatherResponse ->
+//                    TransformersDTO.transformToWeatherDetailsDTO("", weatherResponse)
+//                }
+      return null
     }
 
-    override fun getFiveDaysForecast(cityName: String): Single<ForecastDTO> {
-        return remoteWeatherDataSource.requestFiveDaysForecastForCityByName(cityName)
-                .map { forecastREsponse: ForecastResponse ->
-                    TransformersDTO.transformToForecastDetailDTO(cityName, forecastREsponse)
-                }
+    override fun getFiveDaysForecast(cityName: String): Call<ForecastDTO>? {
+//        return remoteWeatherDataSource.requestFiveDaysForecastForCityByName(cityName)
+//                .map { forecastREsponse: ForecastResponse ->
+//                    TransformersDTO.transformToForecastDetailDTO(cityName, forecastREsponse)
+//                }
+      return null
 
     }
 
-    override fun getCities(): Flowable<List<CityEntity>> {
+    override fun getCities(): Call<List<CityEntity>> {
         return roomDataSource.weatherSearchCityDao().getAllCities()
     }
 
     override fun addCity(cityName: String) {
-        Completable.fromCallable { roomDataSource.weatherSearchCityDao().insertCity(CityEntity(cityName = cityName)) }.subscribeOn(Schedulers.io()).subscribe()
+        //Call.fromCallable { roomDataSource.weatherSearchCityDao().insertCity(CityEntity(cityName = cityName)) }.subscribeOn(Schedulers.io()).subscribe()
     }
 
-    override fun getUVData(lat: String, lon: String): Single<UVDTO> {
-        return remoteWeatherDataSource.requestUVDataByCoordinates(lat, lon)
-                .map { uvResponse: UVResponse ->
-                    TransformersDTO.transformUVDTO(uvResponse)
-                }
+    override fun getUVData(lat: String, lon: String): Call<UVDTO>? {
+//        return remoteWeatherDataSource.requestUVDataByCoordinates(lat, lon)
+//                .map { uvResponse: UVResponse ->
+//                    TransformersDTO.transformUVDTO(uvResponse)
+//                }
+
+      return null
     }
 }

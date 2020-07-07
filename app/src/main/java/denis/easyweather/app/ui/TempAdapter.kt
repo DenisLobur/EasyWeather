@@ -2,10 +2,10 @@ package denis.easyweather.app.ui
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import denis.easyweather.app.R
 import kotlinx.android.synthetic.main.item_temp_bar.view.*
 

@@ -1,6 +1,5 @@
 package denis.easyweather.app.data.room
 
-
 class RoomConfig {
     companion object {
 

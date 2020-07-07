@@ -1,7 +1,10 @@
 package denis.easyweather.app.data.room
 
-import android.arch.persistence.room.*
-import io.reactivex.Flowable
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import retrofit2.Call
 
 @Dao
 interface WeatherCitiesDao {
@@ -13,5 +16,5 @@ interface WeatherCitiesDao {
     fun insertCity(city: CityEntity)
 
     @Query(RoomConfig.SELECT_CITIES)
-    fun getAllCities(): Flowable<List<CityEntity>>
+    fun getAllCities(): Call<List<CityEntity>>
 }

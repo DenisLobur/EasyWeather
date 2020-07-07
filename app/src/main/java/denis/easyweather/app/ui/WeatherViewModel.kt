@@ -1,11 +1,9 @@
 package denis.easyweather.app.ui
 
-import android.arch.lifecycle.ViewModel
 import denis.easyweather.app.data.repository.WeatherRepository
-import javax.inject.Inject
 
 
-class WeatherViewModel @Inject constructor(val weatherRepository: WeatherRepository) : ViewModel() {
+class WeatherViewModel constructor(val weatherRepository: WeatherRepository){
 
     fun getWeather(cityName: String) = weatherRepository.getWeather(cityName)
 

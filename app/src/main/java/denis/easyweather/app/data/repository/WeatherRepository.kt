@@ -4,21 +4,19 @@ import denis.easyweather.app.data.room.CityEntity
 import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.dto.UVDTO
 import denis.easyweather.app.dto.WeatherDetailsDTO
-import io.reactivex.Flowable
-import io.reactivex.Single
-
+import retrofit2.Call
 
 interface WeatherRepository {
 
-    fun getCities(): Flowable<List<CityEntity>>
+    fun getCities(): Call<List<CityEntity>>?
 
-    fun getWeather(cityName: String): Single<WeatherDetailsDTO>
+    fun getWeather(cityName: String): Call<WeatherDetailsDTO>?
 
-    fun getWeatherByCoord(latitude: Double, longitude: Double): Single<WeatherDetailsDTO>
+    fun getWeatherByCoord(latitude: Double, longitude: Double): Call<WeatherDetailsDTO>?
 
-    fun getFiveDaysForecast(cityName: String): Single<ForecastDTO>
+    fun getFiveDaysForecast(cityName: String): Call<ForecastDTO>?
 
     fun addCity(cityName: String)
 
-    fun getUVData(lat: String, lon: String): Single<UVDTO>
+    fun getUVData(lat: String, lon: String): Call<UVDTO>?
 }
