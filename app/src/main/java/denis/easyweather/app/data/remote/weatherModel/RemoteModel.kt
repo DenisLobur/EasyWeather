@@ -1,6 +1,8 @@
 package denis.easyweather.app.data.remote.weatherModel
 
+import denis.easyweather.app.network.response.WeatherDTO
 
+@Deprecated("remove when all DTOs added")
 data class WeatherResponse(
         val dt: Long,
         val coord: Coord,
@@ -24,7 +26,7 @@ data class Wind(val speed: Double, val deg: Double)
 data class WeatherEntry(val main: String, val id: Int, val description: String)
 
 data class ForecastResponse(val city: CityForecast,
-                            val list: List<WeatherResponse>)
+                            val list: List<WeatherDTO>)
 
 data class CityForecast(val name: String,
                         val coord: Coord,

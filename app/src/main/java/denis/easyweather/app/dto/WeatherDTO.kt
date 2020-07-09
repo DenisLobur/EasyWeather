@@ -1,5 +1,6 @@
 package denis.easyweather.app.dto
 
+@Deprecated("Remove after all DTOs added")
 data class WeatherDetailsDTO constructor(
         val dt: Long?,
         val cityName: String,
