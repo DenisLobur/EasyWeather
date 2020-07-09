@@ -53,7 +53,7 @@ ext.mockitoVersion = '2.11.0'
 dependencies {
 
   // Multidex
-  implementation 'com.android.support:multidex:2.0.1'
+  implementation 'androidx.multidex:multidex:2.0.1'
   // UI
   implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
@@ -76,7 +76,6 @@ dependencies {
   implementation 'com.squareup.retrofit2:retrofit:2.9.0'
   implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
   implementation 'com.squareup.okhttp3:okhttp:4.7.2'
-  implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
   implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
 
   // Koin
@@ -95,8 +94,8 @@ dependencies {
   androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
   // Parcerel
-  implementation 'org.parceler:parceler-api:1.1.9'
-  kapt 'org.parceler:parceler:1.1.9'
+//  implementation 'org.parceler:parceler-api:1.1.9'
+//  kapt 'org.parceler:parceler:1.1.9'
   // Gson
   implementation 'com.google.code.gson:gson:2.8.6'
   // Tests

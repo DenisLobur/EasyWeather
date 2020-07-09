@@ -21,11 +21,6 @@ allprojects {
     jcenter()
     maven { url "https://jitpack.io" }
   }
-
-  // use Java 8 for Kotlin
-  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
-  }
 }
 
 task clean(type: Delete) {

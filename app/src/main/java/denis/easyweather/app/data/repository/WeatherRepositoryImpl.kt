@@ -4,8 +4,7 @@ import denis.easyweather.app.data.remote.RemoteWeatherDataSource
 import denis.easyweather.app.data.remote.weatherModel.ForecastResponse
 import denis.easyweather.app.data.remote.weatherModel.UVResponse
 import denis.easyweather.app.data.remote.weatherModel.WeatherResponse
-import denis.easyweather.app.data.room.CityEntity
-import denis.easyweather.app.data.room.RoomDataSource
+import denis.easyweather.app.dto.CityDTO
 import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.dto.UVDTO
 import denis.easyweather.app.dto.WeatherDetailsDTO
@@ -13,8 +12,7 @@ import denis.easyweather.app.utils.TransformersDTO
 import retrofit2.Call
 
 class WeatherRepositoryImpl constructor(
-        private val remoteWeatherDataSource: RemoteWeatherDataSource,
-        private val roomDataSource: RoomDataSource
+        private val remoteWeatherDataSource: RemoteWeatherDataSource
 ) : WeatherRepository {
 
     override fun getWeather(cityName: String): Call<WeatherDetailsDTO>? {
@@ -43,8 +41,9 @@ class WeatherRepositoryImpl constructor(
 
     }
 
-    override fun getCities(): Call<List<CityEntity>> {
-        return roomDataSource.weatherSearchCityDao().getAllCities()
+    override fun getCities(): Call<List<CityDTO>>? {
+        //return roomDataSource.weatherSearchCityDao().getAllCities()
+      return null
     }
 
     override fun addCity(cityName: String) {

@@ -9,6 +9,7 @@ import com.androidplot.util.PixelUtils
 import com.androidplot.xy.*
 import denis.easyweather.app.R
 import denis.easyweather.app.common.Util
+import denis.easyweather.app.dto.CityDTO
 import denis.easyweather.app.dto.ForecastDTO
 import denis.easyweather.app.utils.Constants.FORECAST_RESPONSE
 import kotlinx.android.synthetic.main.activity_forecast.*
@@ -16,7 +17,6 @@ import kotlinx.android.synthetic.main.item_forecast_day.view.*
 import kotlinx.android.synthetic.main.label_temperature.view.*
 import me.panpf.swsv.CircularLayout
 import me.panpf.swsv.SpiderWebScoreView
-import org.parceler.Parcels
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition
@@ -31,10 +31,10 @@ class ForecastActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forecast)
-        val weatherDetails = Parcels.unwrap<ForecastDTO>(intent.getParcelableExtra(FORECAST_RESPONSE))
+        val weatherDetails = ForecastDTO(CityDTO("", null, null, null), emptyList())
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = weatherDetails.city?.name
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar?.title = weatherDetails.city?.name
 
 
         fillFiveDaysForecast(weatherDetails)
