@@ -72,6 +72,7 @@ class ForecastActivity : AppCompatActivity() {
             //drawTemperature(tempList, dayView.spiderWebTemp, dayView.circularTemp)
             //drawPlot(dayView.plot, tempMinList, tempMaxList)
             //horizontalLayout2.addView(dayView)
+
         }
     }
 
